@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shop_app/constants.dart';
+import 'package:batiktrang/constants.dart';
 
 import '../../../size_config.dart';
 
@@ -35,7 +35,7 @@ class CustomAppBar extends StatelessWidget {
                 ),
                 onPressed: () => Navigator.pop(context),
                 child: SvgPicture.asset(
-                  "assets/icons/Back ICon.svg",
+                  "assets/icons/BackICon.svg",
                   height: 15,
                 ),
               ),
@@ -57,7 +57,7 @@ class CustomAppBar extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 5),
-                  SvgPicture.asset("assets/icons/Star Icon.svg"),
+                  SvgPicture.asset("assets/icons/StarIcon.svg"),
                 ],
               ),
             )

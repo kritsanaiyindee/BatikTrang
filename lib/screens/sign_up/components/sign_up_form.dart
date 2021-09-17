@@ -1,9 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:shop_app/components/custom_surfix_icon.dart';
-import 'package:shop_app/components/default_button.dart';
-import 'package:shop_app/components/form_error.dart';
-import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
+import 'package:flutter/material.dart';
+import 'package:batiktrang/components/custom_surfix_icon.dart';
+import 'package:batiktrang/components/default_button.dart';
+import 'package:batiktrang/components/form_error.dart';
+import 'package:batiktrang/screens/complete_profile/complete_profile_screen.dart';
+import 'package:mysql1/mysql1.dart';
+import 'package:batiktrang/models/shopuser.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
@@ -19,15 +23,67 @@ class _SignUpFormState extends State<SignUpForm> {
   String? password;
   String? conform_password;
   bool remember = false;
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final List<String?> errors = [];
+  _signupClick() async {
+    usr=new ShopUser();
+    // SERVER API URL
+    var url = Uri.parse('${weburi}/valid_user.php');
 
+    // Store all data with Param Name.
+    var data = { 'email': emailController.text, 'password' : passwordController.text};
+    print('ddddddd  ${data}');
+    usr.email=emailController.text;
+    usr.passwordHash=passwordController.text;
+    usr.firstName="";
+    usr.lastName="";
+    usr.mobile="";
+    usr.admin="0";
+    usr.vendor="0";
+
+
+    // Starting Web API Call.
+    var response = await http.post(url, body: json.encode(data));
+    print('ddddddd  ${response.body}');
+    // Getting Server response into variable.
+    var message = jsonDecode(response.body);
+   // Map<String, dynamic> usr = jsonDecode(response.body);
+
+    // If Web call Success than Hide the CircularProgressIndicator.
+    if(message=="true"){
+      //Navigator.pushNamed(context, HomeScreen.routeName);
+     // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+      addError(error: kAlreadyHavethisUser);
+    }else{
+
+      //Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>CompleteProfileScreen(),
+        ),
+      );
+
+    }
+
+    print('_signupClick  end');
+
+  }
   void addError({String? error}) {
     if (!errors.contains(error))
       setState(() {
         errors.add(error);
       });
   }
-
+  void initState() {
+ //   emailController.text="kritsanai@harmonious.co.th";
+ //   passwordController.text="Krit1234";
+ //   confirmPasswordController.text="Krit1234";
+    super.initState();
+  }
   void removeError({String? error}) {
     if (errors.contains(error))
       setState(() {
@@ -49,13 +105,19 @@ class _SignUpFormState extends State<SignUpForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Continue",
-            press: () {
+            text: "ถัดไป",
+            press: () async{
+              _signupClick();
+              /*
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
                 Navigator.pushNamed(context, CompleteProfileScreen.routeName);
               }
+
+
+               */
+
             },
           ),
         ],
@@ -65,6 +127,8 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildConformPassFormField() {
     return TextFormField(
+      //initialValue: "Krit1234",
+      controller: confirmPasswordController,
       obscureText: true,
       onSaved: (newValue) => conform_password = newValue,
       onChanged: (value) {
@@ -98,6 +162,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      controller: passwordController,
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
@@ -131,6 +196,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      controller: emailController,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {

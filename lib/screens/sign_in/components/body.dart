@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/no_account_text.dart';
-import 'package:shop_app/components/socal_card.dart';
+import 'package:batiktrang/components/no_account_text.dart';
+import 'package:batiktrang/components/no_account_seller_text.dart';
+import 'package:batiktrang/components/socal_card.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';
 
@@ -18,20 +19,24 @@ class Body extends StatelessWidget {
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
                 Text(
-                  "Welcome Back",
+                  "ยินดีต้อนรับ",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: getProportionateScreenWidth(28),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                /*
                 Text(
-                  "Sign in with your email and password  \nor continue with social media",
+                  "เข้าสู่ระบบด้วยอีเมล์และรหัสผ่านของคุณ  \หรือด้วย social media",
                   textAlign: TextAlign.center,
                 ),
+
+                 */
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SignForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
+                /*
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -50,7 +55,9 @@ class Body extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: getProportionateScreenHeight(20)),
+                */
                 NoAccountText(),
+               // NoAccountSellerText(),
               ],
             ),
           ),

@@ -1,7 +1,11 @@
+import 'package:batiktrang/models/shopuser.dart';
+import 'package:batiktrang/screens/product_list/product_list.dart';
+import 'package:batiktrang/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/screens/profile/profile_screen.dart';
+import 'package:batiktrang/screens/home/home_screen.dart';
+import 'package:batiktrang/screens/profile/profile_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../constants.dart';
 import '../enums.dart';
@@ -40,7 +44,7 @@ class CustomBottomNavBar extends StatelessWidget {
             children: [
               IconButton(
                 icon: SvgPicture.asset(
-                  "assets/icons/Shop Icon.svg",
+                  "assets/icons/FlashIcon.svg",
                   color: MenuState.home == selectedMenu
                       ? kPrimaryColor
                       : inActiveIconColor,
@@ -48,24 +52,61 @@ class CustomBottomNavBar extends StatelessWidget {
                 onPressed: () =>
                     Navigator.pushNamed(context, HomeScreen.routeName),
               ),
+              /*
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Heart Icon.svg"),
+                icon: SvgPicture.asset("assets/icons/HeartIcon.svg"),
                 onPressed: () {},
               ),
+
+               */
               IconButton(
-                icon: SvgPicture.asset("assets/icons/Chat bubble Icon.svg"),
-                onPressed: () {},
+                icon: SvgPicture.asset("assets/icons/ShopIcon.svg",
+                  color: MenuState.message == selectedMenu
+                  ? kPrimaryColor
+                      : inActiveIconColor,
+                ),
+                onPressed: () {
+                      Navigator.pushNamed(context, ProductsListScreen.routeName);
+
+                },
               ),
               IconButton(
                 icon: SvgPicture.asset(
-                  "assets/icons/User Icon.svg",
+                  "assets/icons/UserIcon.svg",
                   color: MenuState.profile == selectedMenu
                       ? kPrimaryColor
                       : inActiveIconColor,
                 ),
-                onPressed: () =>
-                    Navigator.pushNamed(context, ProfileScreen.routeName),
+                onPressed:(){
+                  print('xxxxxxxxxxxxxxxxxxxxxxxx${usr.email}');
+                  if(usr.email!=null){
+                    Navigator.pushNamed(context, ProfileScreen.routeName);
+                  }else{
+                    Navigator.pushNamed(context, SignInScreen.routeName);
+                  }
+                }
+
+
+              //    Navigator.pushNamed(context, SignInScreen.routeName)
+                ,
               ),
+
+              if(usr.vendor=="1"||usr.admin=="1")IconButton(
+                icon: SvgPicture.asset("assets/icons/PlusIcon.svg"),
+                onPressed: () {
+                  Fluttertoast.showToast(
+                      msg: "เพิ่ม Product  สำหรับร้านค้า/admin รอทำ function",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: logoColor,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                  );
+                },
+              ),
+
+
             ],
           )),
     );

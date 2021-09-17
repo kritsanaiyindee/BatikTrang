@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/size_config.dart';
+import 'package:batiktrang/size_config.dart';
 
 const kPrimaryColor = Color(0xFFFF7643);
+const logoColor = Color.fromRGBO(118, 109, 152, 1.0);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
@@ -10,7 +11,7 @@ const kPrimaryGradientColor = LinearGradient(
 );
 const kSecondaryColor = Color(0xFF979797);
 const kTextColor = Color(0xFF757575);
-
+const kTextColorWhite = Colors.white;
 const kAnimationDuration = Duration(milliseconds: 200);
 
 final headingStyle = TextStyle(
@@ -19,20 +20,22 @@ final headingStyle = TextStyle(
   color: Colors.black,
   height: 1.5,
 );
-
+const weburi="https://batiktrang.000webhostapp.com";
 const defaultDuration = Duration(milliseconds: 250);
 
 // Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-const String kEmailNullError = "Please Enter your email";
-const String kInvalidEmailError = "Please Enter Valid Email";
-const String kPassNullError = "Please Enter your password";
-const String kShortPassError = "Password is too short";
-const String kMatchPassError = "Passwords don't match";
-const String kNamelNullError = "Please Enter your name";
-const String kPhoneNumberNullError = "Please Enter your phone number";
-const String kAddressNullError = "Please Enter your address";
+const String kEmailNullError = "โปรดระบุอีเมล์";
+const String kInvalidEmailError = "โปรดระบุให้ถูกต้อง";
+const String kPassNullError = "โปรดระบุรหัสผ่าน";
+const String kShortPassError = "รหัสผ่านสั้นเกินไป";
+const String kMatchPassError = "รหัสผ่านไม่ตรงกัน";
+const String kNamelNullError = "โปรดระบุชื่อ";
+const String kPhoneNumberNullError = "โปรดระบุเบอร์โทรศัพท์";
+const String kAddressNullError = "โปรดระบุที่อยู่";
+const String kAlreadyHavethisUser = "มีการใช้ email ลงทะเบียนอยู่แล้ว";
+const String kNotFoundUser = "ข้อมูลการ Login ไม่ถูก โปรดตรวจสอบ";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:

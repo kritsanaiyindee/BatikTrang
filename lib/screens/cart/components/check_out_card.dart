@@ -1,17 +1,36 @@
+import 'package:batiktrang/models/Cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shop_app/components/default_button.dart';
+import 'package:batiktrang/components/default_button.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class CheckoutCard extends StatelessWidget {
+
+class CheckoutCard extends StatefulWidget {
   const CheckoutCard({
     Key? key,
   }) : super(key: key);
+  @override
+  _CheckoutCardState createState() => _CheckoutCardState();
+}
+
+class _CheckoutCardState extends State<CheckoutCard> {
+
+
+
+
+//class CheckoutCard extends StatelessWidget {
+
+
+
 
   @override
   Widget build(BuildContext context) {
+    double total=0;
+    demoCarts.forEach((cart) {
+      total+=cart.numOfItem*cart.product.price;
+    });
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: getProportionateScreenWidth(15),
@@ -50,13 +69,23 @@ class CheckoutCard extends StatelessWidget {
                   child: SvgPicture.asset("assets/icons/receipt.svg"),
                 ),
                 Spacer(),
-                Text("Add voucher code"),
+                Text("ช่องทางการชำระเงิน"),
+                const SizedBox(width: 10),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  size: 12,
+                  color: kTextColor,
+                ),
+                /*
+                Text("ช่องทางการสั่งซื้อ"),
                 const SizedBox(width: 10),
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 12,
                   color: kTextColor,
                 )
+
+                 */
               ],
             ),
             SizedBox(height: getProportionateScreenHeight(20)),
@@ -65,19 +94,19 @@ class CheckoutCard extends StatelessWidget {
               children: [
                 Text.rich(
                   TextSpan(
-                    text: "Total:\n",
+                    text: "จำนวน:\n",
                     children: [
                       TextSpan(
-                        text: "\$337.15",
+                        text: "\฿${total}",
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
-                  width: getProportionateScreenWidth(190),
+                  width: getProportionateScreenWidth(90),
                   child: DefaultButton(
-                    text: "Check Out",
+                    text: "สั่งซื้อ",
                     press: () {},
                   ),
                 ),

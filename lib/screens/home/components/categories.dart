@@ -1,17 +1,19 @@
+import 'package:batiktrang/screens/product_list/product_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/Flash Icon.svg", "text": "Flash Deal"},
-      {"icon": "assets/icons/Bill Icon.svg", "text": "Bill"},
-      {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
-      {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
-      {"icon": "assets/icons/Discover.svg", "text": "More"},
+      {"icon": "assets/icons/ShopIcon.svg", "text": "โชคกมลรัตน์ผ้าบาติก","shop":"/shop1"},
+      {"icon": "assets/icons/ShopIcon.svg", "text": "โต๊ะเมืองบาติก","shop":"/shop2"},
+      {"icon": "assets/icons/ShopIcon.svg", "text": "พญาบาติก","shop":"/shop3"},
+      {"icon": "assets/icons/ShopIcon.svg", "text": "พีเจบาติก","shop":"/shop4"},
+
     ];
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
@@ -23,7 +25,12 @@ class Categories extends StatelessWidget {
           (index) => CategoryCard(
             icon: categories[index]["icon"],
             text: categories[index]["text"],
-            press: () {},
+            press: () {
+
+                Navigator.pushNamed(context,categories[index]["shop"]);
+
+
+            },
           ),
         ),
       ),
@@ -61,7 +68,7 @@ class CategoryCard extends StatelessWidget {
               child: SvgPicture.asset(icon!),
             ),
             SizedBox(height: 5),
-            Text(text!, textAlign: TextAlign.center)
+            Text(text!, textAlign: TextAlign.center,style: TextStyle(color: kTextColorWhite),)
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -13,7 +14,7 @@ class SearchField extends StatelessWidget {
     return Container(
       width: SizeConfig.screenWidth * 0.6,
       decoration: BoxDecoration(
-        color: kSecondaryColor.withOpacity(0.1),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextField(
@@ -25,8 +26,23 @@ class SearchField extends StatelessWidget {
             border: InputBorder.none,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,
-            hintText: "Search product",
-            prefixIcon: Icon(Icons.search)),
+            hintText: "ค้นหาสินค้า",
+            prefixIcon:
+            IconButton(
+              onPressed:() {
+                Fluttertoast.showToast(
+                    msg: "ค้นหา Product รอทำ function",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: logoColor,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
+              },
+              icon: Icon(Icons.search),
+            ),
+        ),
       ),
     );
   }

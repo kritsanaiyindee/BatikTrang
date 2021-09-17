@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/default_button.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
-import 'package:shop_app/size_config.dart';
+import 'package:batiktrang/components/default_button.dart';
+import 'package:batiktrang/screens/home/home_screen.dart';
+import 'package:batiktrang/size_config.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -15,7 +15,7 @@ class Body extends StatelessWidget {
         ),
         SizedBox(height: SizeConfig.screenHeight * 0.08),
         Text(
-          "Login Success",
+          "เข้าสู่ระบบสำเร็จ",
           style: TextStyle(
             fontSize: getProportionateScreenWidth(30),
             fontWeight: FontWeight.bold,
@@ -24,9 +24,9 @@ class Body extends StatelessWidget {
         ),
         Spacer(),
         SizedBox(
-          width: SizeConfig.screenWidth * 0.6,
+          width: SizeConfig.screenWidth ,
           child: DefaultButton(
-            text: "Back to home",
+            text: "หน้าหลัก",
             press: () {
               Navigator.pushNamed(context, HomeScreen.routeName);
             },

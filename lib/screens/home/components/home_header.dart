@@ -1,5 +1,9 @@
+import 'package:batiktrang/models/Cart.dart';
+import 'package:batiktrang/models/shopuser.dart';
+import 'package:batiktrang/screens/profile/profile_screen.dart';
+import 'package:batiktrang/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/cart/cart_screen.dart';
+import 'package:batiktrang/screens/cart/cart_screen.dart';
 
 import '../../../size_config.dart';
 import 'icon_btn_with_counter.dart';
@@ -20,13 +24,21 @@ class HomeHeader extends StatelessWidget {
         children: [
           SearchField(),
           IconBtnWithCounter(
-            svgSrc: "assets/icons/Cart Icon.svg",
+            numOfitem: demoCarts.length,
+            svgSrc: "assets/icons/CartIcon.svg",
             press: () => Navigator.pushNamed(context, CartScreen.routeName),
           ),
           IconBtnWithCounter(
-            svgSrc: "assets/icons/Bell.svg",
-            numOfitem: 3,
-            press: () {},
+            svgSrc: "assets/icons/UserIcon.svg",
+            //numOfitem: 3,
+            press: () {
+              if(usr.email!=null){
+                Navigator.pushNamed(context, ProfileScreen.routeName);
+              }else{
+                Navigator.pushNamed(context, SignInScreen.routeName);
+              }
+              //Navigator.pushNamed(context, SignInScreen.routeName);
+            },
           ),
         ],
       ),

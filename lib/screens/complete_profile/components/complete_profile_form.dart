@@ -1,9 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:shop_app/components/custom_surfix_icon.dart';
-import 'package:shop_app/components/default_button.dart';
-import 'package:shop_app/components/form_error.dart';
-import 'package:shop_app/screens/otp/otp_screen.dart';
+import 'dart:convert';
+import 'package:batiktrang/screens/home/home_screen.dart';
+import 'package:http/http.dart' as http;
 
+import 'package:flutter/material.dart';
+import 'package:batiktrang/components/custom_surfix_icon.dart';
+import 'package:batiktrang/components/default_button.dart';
+import 'package:batiktrang/components/form_error.dart';
+import 'package:batiktrang/models/shopuser.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
@@ -19,7 +22,21 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   String? lastName;
   String? phoneNumber;
   String? address;
-
+  final fisrtnameController = TextEditingController();
+  final lastmaneController = TextEditingController();
+  final phoneController = TextEditingController();
+  final addressController = TextEditingController();
+  void initState() {
+    print('user    ${usr.email}');
+    print('passwordhash    ${usr.passwordHash}');
+    if(usr.email!=null){
+      fisrtnameController.text=usr.firstName!;
+      lastmaneController.text =usr.lastName!;
+      phoneController.text =usr.mobile!;
+      addressController.text =usr.lastName!;
+    }
+    super.initState();
+  }
   void addError({String? error}) {
     if (!errors.contains(error))
       setState(() {
@@ -33,7 +50,44 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         errors.remove(error);
       });
   }
+  _signupClick() async {
 
+    // SERVER API URL
+    var url = Uri.parse('http://batiktrang.psautocar.com/register.php');
+    print('user    ${usr.email}');
+    print('passwordhash    ${usr.passwordHash}');
+    // Store all data with Param Name.
+    var data = { 'email': '${usr.email}',
+                'password' : '${usr.passwordHash}',
+                'firstname':'${fisrtnameController.text}',
+                'lastname':'${lastmaneController.text}',
+                'mobile':'${phoneController.text}',
+                'address':'${addressController.text}',
+      'admin':0,
+      'vendor':0,
+             };
+    print('ddddddd  ${data}');
+    print('ddddddd  ${json.encode(data)}');
+
+    // Starting Web API Call.
+    var response = await http.post(url, body: json.encode(data));
+    print('ddddddd  ${response.body}');
+    // Getting Server response into variable.
+    var message = jsonDecode(response.body);
+
+    // If Web call Success than Hide the CircularProgressIndicator.
+    if(message=="true"){
+      Navigator.pushNamed(context, HomeScreen.routeName);
+
+    }else{
+      addError(error: kAlreadyHavethisUser);
+
+
+    }
+
+    print('_signupClick  end');
+
+  }
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -50,10 +104,11 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "continue",
+            text: "บันทึก",
             press: () {
               if (_formKey.currentState!.validate()) {
-                Navigator.pushNamed(context, OtpScreen.routeName);
+                _signupClick();
+               // Navigator.pushNamed(context, OtpScreen.routeName);
               }
             },
           ),
@@ -64,6 +119,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildAddressFormField() {
     return TextFormField(
+      controller: addressController,
       onSaved: (newValue) => address = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -79,8 +135,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Address",
-        hintText: "Enter your phone address",
+        labelText: "ที่อยู๋",
+        hintText: "โปรดระบุที่อยู่",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -92,6 +148,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildPhoneNumberFormField() {
     return TextFormField(
+      controller: phoneController,
       keyboardType: TextInputType.phone,
       onSaved: (newValue) => phoneNumber = newValue,
       onChanged: (value) {
@@ -108,8 +165,8 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Phone Number",
-        hintText: "Enter your phone number",
+        labelText: "เบอร์โทรศัพท์",
+        hintText: "โปรดระบุเบอร์โทรศัพท์",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -120,10 +177,11 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildLastNameFormField() {
     return TextFormField(
+      controller: lastmaneController,
       onSaved: (newValue) => lastName = newValue,
       decoration: InputDecoration(
-        labelText: "Last Name",
-        hintText: "Enter your last name",
+        labelText: "นามสกุล",
+        hintText: "โปรดระบุนามสกุล",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -134,6 +192,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildFirstNameFormField() {
     return TextFormField(
+      controller: fisrtnameController,
       onSaved: (newValue) => firstName = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -149,11 +208,11 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "First Name",
-        hintText: "Enter your first name",
+        labelText: "ชื่อ",
+        hintText: "โปรดระบุชื่อ",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
+        //floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
     );

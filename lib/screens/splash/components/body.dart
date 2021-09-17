@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/constants.dart';
-import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
-import 'package:shop_app/size_config.dart';
+import 'package:batiktrang/constants.dart';
+import 'package:batiktrang/screens/sign_in/sign_in_screen.dart';
+import 'package:batiktrang/size_config.dart';
+import 'package:batiktrang/screens/home/home_screen.dart';
 
 // This is the best practice
 import '../components/splash_content.dart';
@@ -16,16 +17,16 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      "text": "Welcome to Tokoto, Let’s shop!",
-      "image": "assets/images/splash_1.png"
+      "text": "Batik Trang",
+      "image": "assets/images/logo.jpg"
     },
     {
       "text":
-          "We help people conect with store \naround United State of America",
+          "ซื้อง่ายขายคล่อง",
       "image": "assets/images/splash_2.png"
     },
     {
-      "text": "We show the easy way to shop. \nJust stay at home with us",
+      "text": "ราคาดีที่สุด",
       "image": "assets/images/splash_3.png"
     },
   ];
@@ -37,6 +38,7 @@ class _BodyState extends State<Body> {
         child: Column(
           children: <Widget>[
             Expanded(
+
               flex: 3,
               child: PageView.builder(
                 onPageChanged: (value) {
@@ -68,9 +70,9 @@ class _BodyState extends State<Body> {
                     ),
                     Spacer(flex: 3),
                     DefaultButton(
-                      text: "Continue",
+                      text: "ถัดไป",
                       press: () {
-                        Navigator.pushNamed(context, SignInScreen.routeName);
+                        Navigator.pushNamed(context, HomeScreen.routeName);
                       },
                     ),
                     Spacer(),
@@ -91,7 +93,7 @@ class _BodyState extends State<Body> {
       height: 6,
       width: currentPage == index ? 20 : 6,
       decoration: BoxDecoration(
-        color: currentPage == index ? kPrimaryColor : Color(0xFFD8D8D8),
+        color: currentPage == index ? Colors.pinkAccent : Colors.white,//Color(0xFFD8D8D8),
         borderRadius: BorderRadius.circular(3),
       ),
     );
