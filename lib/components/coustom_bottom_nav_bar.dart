@@ -1,4 +1,5 @@
 import 'package:batiktrang/models/shopuser.dart';
+import 'package:batiktrang/screens/product_image_upload/product_screen.dart';
 import 'package:batiktrang/screens/product_list/product_list.dart';
 import 'package:batiktrang/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
@@ -94,15 +95,9 @@ class CustomBottomNavBar extends StatelessWidget {
               if(usr.vendor=="1"||usr.admin=="1")IconButton(
                 icon: SvgPicture.asset("assets/icons/PlusIcon.svg"),
                 onPressed: () {
-                  Fluttertoast.showToast(
-                      msg: "เพิ่ม Product  สำหรับร้านค้า/admin รอทำ function",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: logoColor,
-                      textColor: Colors.white,
-                      fontSize: 16.0
-                  );
+                  Navigator.pushNamed(context, UploadProductScreen.routeName);
+
+
                 },
               ),
 

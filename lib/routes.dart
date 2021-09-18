@@ -1,3 +1,4 @@
+import 'package:batiktrang/screens/product_image_upload/product_screen.dart';
 import 'package:batiktrang/screens/product_list/product_list.dart';
 import 'package:flutter/widgets.dart';
 import 'package:batiktrang/screens/cart/cart_screen.dart';
@@ -33,6 +34,7 @@ final Map<String, WidgetBuilder> routes = {
   "/shop3": (context) => ProductsListScreen(shop:1),
   "/shop4": (context) => ProductsListScreen(shop:1),
   "/ProductsList": (context) => ProductsListScreen(shop:1),
+   UploadProductScreen.routeName: (context) => UploadProductScreen(),
 
   SignUpSellerScreen.routeName: (context) => SignUpSellerScreen(),
 
