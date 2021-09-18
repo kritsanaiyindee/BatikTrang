@@ -1,8 +1,8 @@
 <?php
 $servername = "156.67.222.106";
-$username = "u509819093_batiktrang";
-$password = "GGKritsanai1234";
-$dbname = "u509819093_batiktrang";
+$username = "u509819093_XXXXXX";
+$password = "XXXXX";
+$dbname = "u509819093_XXXXX;
 
 
    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
