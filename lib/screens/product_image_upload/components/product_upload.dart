@@ -8,32 +8,24 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'dart:io' as Io;
+import 'package:batiktrang/components/custom_surfix_icon.dart';
+import 'package:batiktrang/components/default_button.dart';
 import 'package:batiktrang/constants.dart';
+import 'package:batiktrang/models/Product.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../size_config.dart';
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Image Picker Demo',
-      home: UploadImageDemo(title: 'Image Picker Example'),
-    );
-  }
-}
 
 class UploadImageDemo extends StatefulWidget {
-  UploadImageDemo({Key? key, this.title}) : super(key: key);
+  UploadImageDemo({Key? key, this.title, this.prd}) : super(key: key);
 
   final String? title;
+  final Product? prd;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -48,15 +40,16 @@ class _MyHomePageState extends State<UploadImageDemo> {
 
   dynamic _pickImageError;
   bool isVideo = false;
-
+  bool _isLoading = false;
   VideoPlayerController? _controller;
   VideoPlayerController? _toBeDisposed;
   String? _retrieveDataError;
-
+  String _uploadFileName = "";
   final ImagePicker _picker = ImagePicker();
   final TextEditingController maxWidthController = TextEditingController();
   final TextEditingController maxHeightController = TextEditingController();
   final TextEditingController qualityController = TextEditingController();
+
   //
   static final String uploadEndPoint =
       'http://localhost/flutter_test/upload_image.php';
@@ -65,7 +58,10 @@ class _MyHomePageState extends State<UploadImageDemo> {
   String? base64Image;
   Io.File? tmpFile;
   String errMessage = 'Error Uploading Image';
-
+  int _value = 1;
+  final productName = TextEditingController();
+  final proDuctDescription = TextEditingController();
+  final productPrice = TextEditingController();
 
   Future<void> _playVideo(XFile? file) async {
     if (file != null && mounted) {
@@ -93,58 +89,23 @@ class _MyHomePageState extends State<UploadImageDemo> {
 
   void _onImageButtonPressed(ImageSource source,
       {BuildContext? context, bool isMultiImage = false}) async {
-    if (_controller != null) {
-      print('FloatingActionButton1');
-      await _controller!.setVolume(0.0);
-    }
-    if (isVideo) {
-      print('FloatingActionButton2');
-      final XFile? file = await _picker.pickVideo(
-          source: source, maxDuration: const Duration(seconds: 10));
-      await _playVideo(file);
-    } else if (isMultiImage) {
-      print('FloatingActionButton3');
-      await _displayPickImageDialog(context!,
-              (double? maxWidth, double? maxHeight, int? quality) async {
-            try {
-              final pickedFileList = await _picker.pickMultiImage(
-                maxWidth: maxWidth,
-                maxHeight: maxHeight,
-                imageQuality: quality,
-              );
-              setState(() {
-                _imageFileList = pickedFileList;
-              });
-            } catch (e) {
-              setState(() {
-                _pickImageError = e;
-              });
-            }
-          });
-    } else {
-      print('FloatingActionButton4');
-
-            try {
-              final pickedFile = await _picker.pickImage(
-                source: source,
-                maxWidth: 350,
-                maxHeight: 150,
-                imageQuality: 70,
-              );
-              setState(() {
-                print('<-----------${pickedFile!.path}-------------->');
-                _imageFile = pickedFile;
-                startUpload(pickedFile);
-                print('FloatingActionButton4');
-
-
-              });
-            } catch (e) {
-              setState(() {
-                _pickImageError = e;
-              });
-            }
-
+    try {
+      final pickedFile = await _picker.pickImage(
+        source: source,
+        maxWidth: 200,
+        maxHeight: 200,
+        //imageQuality: 70,
+      );
+      setState(() {
+        print('<-----------${pickedFile!.path}-------------->');
+        _imageFile = pickedFile;
+        //startUpload(pickedFile);
+        print('FloatingActionButton4');
+      });
+    } catch (e) {
+      setState(() {
+        _pickImageError = e;
+      });
     }
   }
 
@@ -174,6 +135,10 @@ class _MyHomePageState extends State<UploadImageDemo> {
     _controller = null;
   }
 
+  void initState() {
+    super.initState();
+  }
+
   Widget _previewVideo() {
     final Text? retrieveError = _getRetrieveErrorWidget();
     if (retrieveError != null) {
@@ -190,38 +155,37 @@ class _MyHomePageState extends State<UploadImageDemo> {
       child: AspectRatioVideo(_controller),
     );
   }
+
   setStatus(String message) {
     setState(() {
       status = message;
     });
   }
-  startUpload(XFile xx ) {
+
+  startUpload(XFile xx) async {
     final bytes = Io.File(xx.path).readAsBytesSync();
-    base64Image  = base64Encode(bytes);
-    //var imageBytes = xx.readAsBytes();
-    print(base64Image);
-    //String base64Image = base64Encode(imageBytes);
+    base64Image = base64Encode(bytes);
 
-
-
-
-    //base64Image = base64Encode(snapshot.data.readAsBytesSync());
+    // print(base64Image);
     print('<-----------Uploading Imag-------------->');
     setStatus('Uploading Image...');
-    String fileName =  xx.path.split('/').last;
-    print('<-----------${fileName}-------------->');
+    String fileName = xx.path.split('/').last;
+    _uploadFileName = fileName;
+    // print('<-----------${fileName}-------------->');
     upload(fileName);
   }
 
   upload(String fileName) {
     var uploadEndPoint = Uri.parse('${weburi}/image_upload.php');
-    print('<-----------${weburi}/image_upload.php-------------->');
-    print('<-----------${uploadEndPoint.path}-------------->');
+    //print('<-----------${weburi}/image_upload.php-------------->');
+    //print('<-----------${uploadEndPoint.path}-------------->');
     http.post(uploadEndPoint, body: {
       "image": base64Image,
-      "name": fileName,
+      "name": 'shop${_value}//${fileName}',
+      "path": "shop${_value}"
     }).then((result) {
-      print('<-------result.statusCode == 200----${result.statusCode == 200}-------------->');
+      print(
+          '<-------result.statusCode == 200----${result.statusCode == 200}-------------->');
       setStatus(result.statusCode == 200 ? result.body : errMessage);
     }).catchError((error) {
       print('<-------result.statusCode == 200----${error}-------------->');
@@ -229,40 +193,92 @@ class _MyHomePageState extends State<UploadImageDemo> {
     });
   }
 
-
   Widget _previewImages() {
     final Text? retrieveError = _getRetrieveErrorWidget();
     if (retrieveError != null) {
       return retrieveError;
     }
-    if (_imageFileList != null) {
-      return Semantics(
-          child: ListView.builder(
-            key: UniqueKey(),
-            itemBuilder: (context, index) {
-              // Why network for web?
-              // See https://pub.dev/packages/image_picker#getting-ready-for-the-web-platform
-              return Semantics(
-                label: 'image_picker_example_picked_image',
-                child: kIsWeb
-                    ? Image.network(_imageFileList![index].path)
-                    : Image.file(Io.File(_imageFileList![index].path)),
-              );
-            },
-            itemCount: _imageFileList!.length,
+
+    return Padding(
+        padding:
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(0)),
+        child: SingleChildScrollView(
+            child: Column(children: [
+          ddlShop(),
+          buildNameFormField(),
+          SizedBox(height: getProportionateScreenHeight(20)),
+          buildDescriptionFormField(),
+          SizedBox(height: getProportionateScreenHeight(20)),
+          buildPriceFormField(),
+          SizedBox(height: getProportionateScreenHeight(20)),
+          SizedBox(
+            height: 115,
+            width: 115,
+            child: Stack(
+              fit: StackFit.expand,
+              clipBehavior: Clip.none,
+              children: [
+                (_imageFileList != null)?
+                  Image.file(
+                  Io.File(_imageFileList![0].path),
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.fill,
+                ):Image.asset(
+              "assets/images/dummy.png",
+              height: 200,
+              width: 200,
+            ),
+                Positioned(
+                  right: -16,
+                  bottom: 0,
+                  child: SizedBox(
+                    height: 46,
+                    width: 46,
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          side: BorderSide(color: Colors.white),
+                        ),
+                        primary: Colors.white,
+                        backgroundColor: Color(0xFFF5F6F9),
+                      ),
+                      onPressed: () {
+                        print('FloatingActionButton');
+                        isVideo = false;
+                        _onImageButtonPressed(ImageSource.gallery,
+                            context: context);
+                      },
+                      child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-          label: 'image_picker_example_picked_images');
+          SizedBox(height: getProportionateScreenHeight(20)),
+              _isLoading ? CircularProgressIndicator():SizedBox(height: getProportionateScreenHeight(0)),
+          DefaultButton(
+            text: "บันทึก",
+            press: () {
+              setState(() {
+                _isLoading = true;
+              });
+              _createProductClick();
+              // Navigator.pushNamed(context, OtpScreen.routeName);
+            },
+          ),
+        ])));
+    /*
     } else if (_pickImageError != null) {
       return Text(
         'Pick image error: $_pickImageError',
         textAlign: TextAlign.center,
       );
-    } else {
-      return const Text(
-        'You have not yet picked an image.',
-        textAlign: TextAlign.center,
-      );
     }
+
+     */
   }
 
   Widget _handlePreview() {
@@ -286,7 +302,7 @@ class _MyHomePageState extends State<UploadImageDemo> {
         isVideo = false;
         setState(() {
           startUpload(response.file!);
-         // base64Image = base64Encode(response.file.readAsBytes());
+          // base64Image = base64Encode(response.file.readAsBytes());
 
           _imageFile = response.file;
           _imageFileList = response.files;
@@ -297,47 +313,232 @@ class _MyHomePageState extends State<UploadImageDemo> {
     }
   }
 
+  Widget ddlShop() {
+    return new DropdownButton(
+        value: _value,
+        items: [
+          DropdownMenuItem(
+            child: Text("โชคกมลรัตน์บาติก"),
+            value: 1,
+          ),
+          DropdownMenuItem(
+            child: Text("โต๊ะเมืองบาติก"),
+            value: 2,
+          ),
+          DropdownMenuItem(
+            child: Text("พญาบาติก"),
+            value: 3,
+          ),
+          DropdownMenuItem(
+            child: Text("พีเจบาติก"),
+            value: 4,
+          )
+        ],
+        onChanged: (newValue) {
+          setState(() {
+            _value = newValue as int;
+            print('val   ${_value}');
+          });
+        },
+        hint: Text("Select item"));
+  }
+
+  _createProductClick() async {
+    // SERVER API URL
+
+    await startUpload(_imageFileList![0]);
+    var url = Uri.parse('${weburi}/create_product.php');
+    var img_url = "/shop${_value}/${_uploadFileName}";
+    var data = {
+      'shopid': '${_value}',
+      'name': '${productName.text}',
+      'description': '${proDuctDescription.text}',
+      'code': '${_value}',
+      'image_url': '${img_url}',
+      'price': '${productPrice.text}',
+      'rating': 0,
+      'isFavourite': 0,
+      'isready': 1,
+    };
+    print('ddddddd  ${data}');
+    print('ddddddd  ${json.encode(data)}');
+
+    // Starting Web API Call.
+    var response = await http.post(url, body: json.encode(data));
+    print('ddddddd  ${response.body}');
+    // Getting Server response into variable.
+    var message = jsonDecode(response.body);
+    url = Uri.parse('${weburi}/load_product.php');
+    var responsep = await http.post(url, body: json.encode(data));
+    print('ddddddd  ${responsep.body}');
+    // Getting Server response into variable.
+    var messagep = jsonDecode(responsep.body);
+    setState(() {
+      Shop1 =
+          List<Product>.from(messagep.map((model) => Product.fromJson(model)));
+      _isLoading = false;
+       productName.text="";
+       proDuctDescription.text="";
+       productPrice.text="";
+    });
+
+    // If Web call Success than Hide the CircularProgressIndicator.
+    if (message == "true") {
+      //  Navigator.pushNamed(context, HomeScreen.routeName);
+
+    } else {
+      //  addError(error: kAlreadyHavethisUser);
+
+    }
+
+    print('_signupClick  end');
+  }
+
+  TextFormField buildNameFormField() {
+    return TextFormField(
+      //initialValue: "kritsanai@harmonious.co.th",
+      controller: productName,
+      keyboardType: TextInputType.text,
+      //onSaved: (newValue) => email = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          //removeError(error: kEmailNullError);
+        } else if (emailValidatorRegExp.hasMatch(value)) {
+          // removeError(error: kInvalidEmailError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          // addError(error: kEmailNullError);
+          return "";
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          // addError(error: kInvalidEmailError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "ชื่อสินค้า",
+        hintText: "ระบุชื่อสินค้า",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/edit.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildDescriptionFormField() {
+    return TextFormField(
+      //initialValue: "kritsanai@harmonious.co.th",
+      controller: proDuctDescription,
+      keyboardType: TextInputType.text,
+      //onSaved: (newValue) => email = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          //removeError(error: kEmailNullError);
+        } else if (emailValidatorRegExp.hasMatch(value)) {
+          // removeError(error: kInvalidEmailError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          // addError(error: kEmailNullError);
+          return "";
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          // addError(error: kInvalidEmailError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "รายละเอียดสินค้า",
+        hintText: "ระบุรายละเอียดสินค้า",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/edit.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildPriceFormField() {
+    return TextFormField(
+      //initialValue: "kritsanai@harmonious.co.th",
+      controller: productPrice,
+      keyboardType: TextInputType.number,
+      //onSaved: (newValue) => email = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          //removeError(error: kEmailNullError);
+        } else if (emailValidatorRegExp.hasMatch(value)) {
+          // removeError(error: kInvalidEmailError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          // addError(error: kEmailNullError);
+          return "";
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          // addError(error: kInvalidEmailError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "ราคา",
+        hintText: "ระบุราคา",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/edit.svg"),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(getProportionateScreenWidth(12)),
-        height: getProportionateScreenWidth(340),
-        width: getProportionateScreenWidth(340),
+        padding: EdgeInsets.all(getProportionateScreenWidth(5)),
+        // height: getProportionateScreenWidth(340),
+        //  width: getProportionateScreenWidth(340),
         decoration: BoxDecoration(
           color: Colors.white,
           shape: BoxShape.circle,
         ),
-          child: !kIsWeb && defaultTargetPlatform == TargetPlatform.android
+        child: !kIsWeb && defaultTargetPlatform == TargetPlatform.android
             ? FutureBuilder<void>(
-          future: retrieveLostData(),
-          builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-              case ConnectionState.waiting:
-                return const Text(
-                  'You have not yet picked an image.',
-                  textAlign: TextAlign.center,
-                );
-              case ConnectionState.done:
-                return _handlePreview();
-              default:
-                if (snapshot.hasError) {
-                  return Text(
-                    'Pick image/video error: ${snapshot.error}}',
-                    textAlign: TextAlign.center,
-                  );
-                } else {
-                  return const Text(
-                    'You have not yet picked an image.',
-                    textAlign: TextAlign.center,
-                  );
-                }
-            }
-          },
-        )
+                future: retrieveLostData(),
+                builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                    case ConnectionState.waiting:
+                      return Column(children: [
+                        buildNameFormField(),
+                      ]);
+                    case ConnectionState.done:
+                      return _handlePreview();
+                    default:
+                      if (snapshot.hasError) {
+                        return Text(
+                          'Pick image/video error: ${snapshot.error}}',
+                          textAlign: TextAlign.center,
+                        );
+                      } else {
+                        return Column(children: [
+                          buildNameFormField(),
+                        ]);
+                      }
+                  }
+                },
+              )
             : _handlePreview(),
       ),
+      /*
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -354,9 +555,10 @@ class _MyHomePageState extends State<UploadImageDemo> {
               child: const Icon(Icons.photo),
             ),
           ),
-
         ],
       ),
+
+       */
     );
   }
 
@@ -382,19 +584,19 @@ class _MyHomePageState extends State<UploadImageDemo> {
                   controller: maxWidthController,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration:
-                  InputDecoration(hintText: "Enter maxWidth if desired"),
+                      InputDecoration(hintText: "Enter maxWidth if desired"),
                 ),
                 TextField(
                   controller: maxHeightController,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration:
-                  InputDecoration(hintText: "Enter maxHeight if desired"),
+                      InputDecoration(hintText: "Enter maxHeight if desired"),
                 ),
                 TextField(
                   controller: qualityController,
                   keyboardType: TextInputType.number,
                   decoration:
-                  InputDecoration(hintText: "Enter quality if desired"),
+                      InputDecoration(hintText: "Enter quality if desired"),
                 ),
               ],
             ),

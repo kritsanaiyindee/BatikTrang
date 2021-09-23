@@ -29,7 +29,7 @@ class _ProductImagesState extends State<ProductImages> {
             child: Hero(
               tag: widget.product.id.toString(),
              // child: Image.asset(widget.product.images[selectedImage]),
-              child:Image.network('${weburi}${widget.product.imageUrl}'),
+              child:Image.network('${weburi}${widget.product.imageUrl}',fit:BoxFit.fill),
             ),
           ),
         ),

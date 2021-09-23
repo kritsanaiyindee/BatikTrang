@@ -7,16 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:batiktrang/components/product_card.dart';
 
-
-
 class ProductsListScreen extends StatelessWidget {
   const ProductsListScreen({
     Key? key,
     this.shop,
   }) : super(key: key);
-  final int?  shop;
+  final int? shop;
   static String routeName = "/ProductsList";
-
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +33,11 @@ class ProductsListScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: ProductsListPageBody(shop: shop!,),
-        bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.message),
+        body: ProductsListPageBody(
+          shop: shop!,
+        ),
+        bottomNavigationBar:
+            CustomBottomNavBar(selectedMenu: MenuState.message),
       ),
     );
   }
@@ -49,7 +49,6 @@ class ProductsListPageBody extends StatelessWidget {
   ProductsListPageBody({
     required this.shop,
   });
-
 
   BuildContext? context;
   ProductScopedModel? model;
@@ -84,40 +83,59 @@ class ProductsListPageBody extends StatelessWidget {
       child: model!.getProductsCount() == 0
           ? Center(child: Text("No products available."))
           : ListView.builder(
-        itemCount: model!.getProductsCount() + 2,
-        itemBuilder: (context, index) {
-          if (index == model!.getProductsCount()) {
-            if (model!.hasMoreProducts) {
-              pageIndex++;
-              model!.parseProductsFromResponse(this.shop, pageIndex);
-              return Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Center(child: CircularProgressIndicator()),
-              );
-            }
-            return Container();
-          } else if (index == 0) {
-            //0th index would contain filter icons
-           // return _buildFilterWidgets(screenSize);
-            return Container();
-          } else if (index % 2 == 0) {
-            //2nd, 4th, 6th.. index would contain nothing since this would
-            //be handled by the odd indexes where the row contains 2 items
-            return Container();
-          } else {
-            //1st, 3rd, 5th.. index would contain a row containing 2 products
+              itemCount: (model!.getProductsCount() + 2),
+              itemBuilder: (context, index) {
+                // print('xxxxxxxxxxxxxxxxxxxxxxxxxx${index}');
 
-            if (index > model!.getProductsCount() - 1) {
-              return Container();
-            }
+                if (index == model!.getProductsCount()+1) {
+                  print('xxxxxxxxxxxxxxxxxxxxxxxxxx${index}');
+                  if (model!.hasMoreProducts) {
+                    //pageIndex++;
+                    //model!.parseProductsFromResponse(this.shop, pageIndex);
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+                  return Container();
+                } else if (index == 0) {
+                  //0th index would contain filter icons
+                  // return _buildFilterWidgets(screenSize);
+                  return Container();
+                } else if (index % 2 == 0) {
+                  //2nd, 4th, 6th.. index would contain nothing since this would
+                  //be handled by the odd indexes where the row contains 2 items
+                  return Container();
+                } else {
+                  //1st, 3rd, 5th.. index would contain a row containing 2 products
+                  ;
+                  print('   ${index}');
 
-            return ProductsListItem(//product:model!.productsList[index]);
-              product1: model!.productsList[index - 1],
-              product2: model!.productsList[index],
-           );
-          }
-        },
-      ),
+                  print('   ${model!.getProductsCount()}');
+                  print(
+                      ' index > model!.getProductsCount()   ${index > model!.getProductsCount()}');
+                  if (index > model!.getProductsCount()) {
+                    return Container();
+                  }
+                  print(' xxxxx  ${index-1}');
+                  print(' xxxxxxx  ${index}');
+                  if(index==model!.getProductsCount()){
+                    return ProductsListItem(
+                      //product:model!.productsList[index]);
+                      product1: model!.productsList[index - 1],
+                      product2: null,
+                    );
+                  }else{
+                    return ProductsListItem(
+                      //product:model!.productsList[index]);
+                      product1: model!.productsList[index - 1],
+                      product2: model!.productsList[index],
+                    );
+                  }
+
+                }
+              },
+            ),
     );
   }
 

@@ -1,6 +1,8 @@
+import 'package:batiktrang/components/coustom_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 
+import '../../enums.dart';
 import 'components/product_upload.dart';
 
 class UploadProductScreen extends StatelessWidget {
@@ -12,6 +14,7 @@ class UploadProductScreen extends StatelessWidget {
         title: Text("Upload Product"),
       ),
       body: UploadImageDemo(title: 'Image Picker Example'),
+      bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.favourite),
     );
   }
 }

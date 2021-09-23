@@ -13,13 +13,24 @@ import '../../enums.dart';
 
 
 class ProductsListItem extends StatelessWidget {
-  final Product product1;
-  final Product product2;
 
+/*
   ProductsListItem({
+    this.product1,
+    this.product2,
+  });
+
+ */
+  const ProductsListItem({
+    Key? key,
     required this.product1,
     required this.product2,
-  });
+  }) : super(key: key);
+  //final String? text, image;
+  final Product product1;
+  final Product? product2;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +44,7 @@ class ProductsListItem extends StatelessWidget {
         _buildProductItemCard(context, product1),
         product2 == null
             ? Container()
-            : _buildProductItemCard(context, product2),
+            : _buildProductItemCard(context, product2!),
       ],
     );
   }
@@ -75,7 +86,7 @@ class ProductsListItem extends StatelessWidget {
           children: <Widget>[
             Container(
               //child:Image.asset('${product.images[0]}'),
-              child:Image.network('${weburi}${product.imageUrl}'),
+              child:Image.network('${weburi}${product.imageUrl}',fit:BoxFit.fill),
               height: 160.0,
               width: MediaQuery.of(context).size.width / 2.2,
             ),

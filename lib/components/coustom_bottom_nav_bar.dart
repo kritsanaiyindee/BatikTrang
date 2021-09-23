@@ -93,6 +93,9 @@ class CustomBottomNavBar extends StatelessWidget {
               ),
 
               if(usr.vendor=="1"||usr.admin=="1")IconButton(
+                color: MenuState.favourite == selectedMenu
+                    ? kPrimaryColor
+                    : inActiveIconColor,
                 icon: SvgPicture.asset("assets/icons/PlusIcon.svg"),
                 onPressed: () {
                   Navigator.pushNamed(context, UploadProductScreen.routeName);
