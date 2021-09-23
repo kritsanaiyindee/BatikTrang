@@ -29,7 +29,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
   Widget build(BuildContext context) {
     double total=0;
     demoCarts.forEach((cart) {
-      total+=cart.numOfItem*cart.product.price;
+      total+=cart.numOfItem*double.parse('${cart.product.price}')  ;
     });
     return Container(
       padding: EdgeInsets.symmetric(

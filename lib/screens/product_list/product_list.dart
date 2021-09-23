@@ -21,7 +21,7 @@ class ProductsListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProductScopedModel productModel = ProductScopedModel();
-    productModel.parseProductsFromResponse(95, 1);
+    productModel.parseProductsFromResponse(shop!, 1);
 
     return new ScopedModel<ProductScopedModel>(
       model: productModel,
@@ -36,7 +36,7 @@ class ProductsListScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: ProductsListPageBody(),
+        body: ProductsListPageBody(shop: shop!,),
         bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.message),
       ),
     );
@@ -44,6 +44,13 @@ class ProductsListScreen extends StatelessWidget {
 }
 
 class ProductsListPageBody extends StatelessWidget {
+  final int shop;
+
+  ProductsListPageBody({
+    required this.shop,
+  });
+
+
   BuildContext? context;
   ProductScopedModel? model;
 
@@ -82,7 +89,7 @@ class ProductsListPageBody extends StatelessWidget {
           if (index == model!.getProductsCount()) {
             if (model!.hasMoreProducts) {
               pageIndex++;
-              model!.parseProductsFromResponse(95, pageIndex);
+              model!.parseProductsFromResponse(this.shop, pageIndex);
               return Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: Center(child: CircularProgressIndicator()),

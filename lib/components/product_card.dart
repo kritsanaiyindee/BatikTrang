@@ -42,13 +42,14 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: Hero(
                     tag: product.id.toString(),
-                    child: Image.asset(product.images[0]),
+                   // child: Image.asset(product.images[0]),
+                    child:Image.network('${weburi}${product.imageUrl}'),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
-                product.title,
+                product.name!,
                 style: TextStyle(color: Colors.white),
                 maxLines: 2,
               ),
@@ -71,14 +72,14 @@ class ProductCard extends StatelessWidget {
                       height: getProportionateScreenWidth(28),
                       width: getProportionateScreenWidth(28),
                       decoration: BoxDecoration(
-                        color: product.isFavourite
+                        color: product.isFavourite=="1"
                             ? kPrimaryColor.withOpacity(0.15)
                             : kSecondaryColor.withOpacity(0.1),
                         shape: BoxShape.circle,
                       ),
                       child: SvgPicture.asset(
                         "assets/icons/HeartIcon_2.svg",
-                        color: product.isFavourite
+                        color: product.isFavourite=="1"
                             ? Color(0xFFFF4848)
                             : Color(0xFFDBDEE4),
                       ),

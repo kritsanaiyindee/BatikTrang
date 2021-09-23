@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:batiktrang/models/Product.dart';
+import 'package:batiktrang/models/productModel.dart';
 import 'package:batiktrang/models/shopuser.dart';
 import 'package:http/http.dart' as http;
 import 'package:batiktrang/screens/home/home_screen.dart';
@@ -66,6 +68,25 @@ class _SignFormState extends State<SignForm> {
     if(CRO.length>0){
       //Navigator.pushNamed(context, HomeScreen.routeName);
       usr=CRO[0];
+      /*
+      var url = Uri.parse('${weburi}/load_product.php');
+      var responsep = await http.post(url, body: json.encode(data));
+      print('ddddddd  ${responsep.body}');
+      // Getting Server response into variable.
+      var messagep = jsonDecode(responsep.body);
+      setState(() {
+        Shop1 = List<Product>.from(
+            messagep.map((model) => Product.fromJson(model)));
+      });
+*/
+
+
+
+
+
+
+
+
       Navigator.pushNamed(context, LoginSuccessScreen.routeName);
 
     }else{

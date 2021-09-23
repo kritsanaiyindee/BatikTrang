@@ -36,7 +36,8 @@ class CartCard extends StatefulWidget {
                 color: Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.asset(this.widget.cart.product.images[0]),
+              child:Image.network('${weburi}${this.widget.cart.product.imageUrl}'),
+             // child: Image.asset(this.widget.cart.product.images[0]),
             ),
           ),
         ),
@@ -45,7 +46,7 @@ class CartCard extends StatefulWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              this.widget.cart.product.title,
+              this.widget.cart.product.name!,
               style: TextStyle(color: Colors.black, fontSize: 16),
               maxLines: 2,
             ),

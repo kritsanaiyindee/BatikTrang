@@ -23,7 +23,7 @@ class PopularProducts extends StatelessWidget {
               ...List.generate(
                 Shop1.length,
                 (index) {
-                  if (Shop1[index].isPopular)
+                  if (Shop1[index].isFavourite=="1")
                     return ProductCard(product: Shop1[index]);
 
                   return SizedBox

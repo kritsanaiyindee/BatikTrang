@@ -30,9 +30,9 @@ final Map<String, WidgetBuilder> routes = {
   ProfileScreen.routeName: (context) => ProfileScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
   "/shop1": (context) => ProductsListScreen(shop:1),
-  "/shop2": (context) => ProductsListScreen(shop:1),
-  "/shop3": (context) => ProductsListScreen(shop:1),
-  "/shop4": (context) => ProductsListScreen(shop:1),
+  "/shop2": (context) => ProductsListScreen(shop:2),
+  "/shop3": (context) => ProductsListScreen(shop:3),
+  "/shop4": (context) => ProductsListScreen(shop:4),
   "/ProductsList": (context) => ProductsListScreen(shop:1),
    UploadProductScreen.routeName: (context) => UploadProductScreen(),
 

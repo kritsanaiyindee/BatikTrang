@@ -1,9 +1,11 @@
+import 'package:batiktrang/models/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:batiktrang/constants.dart';
 import 'package:batiktrang/screens/sign_in/sign_in_screen.dart';
 import 'package:batiktrang/size_config.dart';
 import 'package:batiktrang/screens/home/home_screen.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 // This is the best practice
 import '../components/splash_content.dart';
 import '../../../components/default_button.dart';
@@ -71,7 +73,17 @@ class _BodyState extends State<Body> {
                     Spacer(flex: 3),
                     DefaultButton(
                       text: "ถัดไป",
-                      press: () {
+                      press: () async {
+                        var data = { };
+                        var url = Uri.parse('${weburi}/load_product.php');
+                        var responsep = await http.post(url, body: json.encode(data));
+                        print('ddddddd  ${responsep.body}');
+                        // Getting Server response into variable.
+                        var messagep = jsonDecode(responsep.body);
+                        setState(() {
+                          Shop1 = List<Product>.from(
+                              messagep.map((model) => Product.fromJson(model)));
+                        });
                         Navigator.pushNamed(context, HomeScreen.routeName);
                       },
                     ),

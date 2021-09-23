@@ -1,124 +1,64 @@
+import 'package:batiktrang/models/productModel.dart';
 import 'package:flutter/material.dart';
 
 class Product {
-  final int id;
-  final String title, description;
-  final List<String> images;
-  final List<Color> colors;
-  final double rating, price;
-  final bool isFavourite, isPopular;
+  String? id;
+  String? shopId;
+  String? name;
+  String? description;
+  String? code;
+  String? imageUrl;
+  String? price;
+  String? rating;
+  String? isready;
+  String? isFavourite;
+  Product(
+      {this.id,
+        this.shopId,
+        this.name,
+        this.description,
+        this.code,
+        this.imageUrl,
+        this.price,
+        this.rating,
+        this.isready,
+      this.isFavourite});
+  Product.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    shopId = json['shop_id'];
+    name = json['name'];
+    description = json['description'];
+    code = json['code'];
+    imageUrl = json['image_url'];
+    price = json['price'];
+    rating = json['rating'];
+    isready = json['isready'];
+    isFavourite = json['isFavourite'];
+  }
 
-  Product({
-    required this.id,
-    required this.images,
-    required this.colors,
-    this.rating = 0.0,
-    this.isFavourite = false,
-    this.isPopular = false,
-    required this.title,
-    required this.price,
-    required this.description,
-  });
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['shop_id'] = this.shopId;
+    data['name'] = this.name;
+    data['description'] = this.description;
+    data['code'] = this.code;
+    data['image_url'] = this.imageUrl;
+    data['price'] = this.price;
+    data['rating'] = this.rating;
+    data['isready'] = this.isready;
+    data['isFavourite'] = this.isFavourite;
+    return data;
+  }
 }
 
 // Our demo Products
 int qty=0;
 List<Product> Shop1 = [
-
-  Product(
-    id: 2,
-    images: [
-      "assets/images/store1/1.jpg",
-      "assets/images/store1/2.jpg",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "โชคกมลรัตน์ผ้าบาติก 1",
-    price: 1500,
-    description: description,
-    rating: 4.1,
-    isPopular: true,
-  ),
-  Product(
-    id: 3,
-    images: [
-      "assets/images/store1/2.jpg",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "โชคกมลรัตน์ผ้าบาติก 2",
-    price: 990,
-    description: description,
-    rating: 4.1,
-    isFavourite: true,
-    isPopular: true,
-  ),
-  Product(
-    id: 4,
-    images: [
-      "assets/images/store1/3.jpg",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "โชคกมลรัตน์ผ้าบาติก 3",
-    price: 2990,
-    description: description,
-    rating: 4.1,
-    isFavourite: true,
-    isPopular: true,
-  ),
-  Product(
-    id: 5,
-    images: [
-      "assets/images/store1/4.jpg",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "โชคกมลรัตน์ผ้าบาติก 4",
-    price: 2990,
-    description: description,
-    rating: 4.1,
-    isFavourite: true,
-    isPopular: true,
-  ),
-  Product(
-    id: 6,
-    images: [
-      "assets/images/store1/5.jpg",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "โชคกมลรัตน์ผ้าบาติก 5",
-    price: 2990,
-    description: description,
-    rating: 4.1,
-    isFavourite: true,
-    isPopular: true,
-  ),
 ];
 
 List<Product> Shop2 = [
-
+/*
   Product(
     id: 2,
     images: [
@@ -238,11 +178,12 @@ List<Product> Shop2 = [
     description: description,
     rating: 4.1,
     isFavourite: true,
-  ),
+  ),*/
+
 ];
 
 List<Product> Shop3 = [
-
+/*
   Product(
     id: 2,
     images: [
@@ -386,11 +327,12 @@ List<Product> Shop3 = [
     rating: 4.1,
     isFavourite: true,
     isPopular: true,
-  ),
+  ),*/
 ];
 
 
 List<Product> Shop4 = [
+  /*
   Product(
     id: 1,
     images: [
@@ -502,6 +444,8 @@ List<Product> Shop4 = [
     isFavourite: true,
     isPopular: true,
   ),
+
+ */
 ];
 
 const String description =

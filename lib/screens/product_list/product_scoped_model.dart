@@ -41,21 +41,22 @@ class ProductScopedModel extends Model {
     notifyListeners();
 
     currentProductCount = 0;
+    print('shopid   ===========${shopid}');
     var shp=Shop1;
     if(shopid==1){
-      shp=Shop1;
+      shp=Shop1.where((i) => i.shopId=="1").toList();;
     }else if(shopid==2){
-      shp=Shop2;
+      shp=Shop1.where((i) => i.shopId=="2").toList();;
     }else if(shopid==3){
-      shp=Shop3;
+      shp=Shop1.where((i) => i.shopId=="3").toList();;
     }else if(shopid==4){
-      shp=Shop4;
+      shp=Shop1.where((i) => i.shopId=="4").toList();;
     }else{
       shp=Shop1;
     }
     //var dataFromResponse = await _getProductsByCategory(categoryId, pageIndex);
 
-    Shop1.forEach(
+    shp.forEach(
           (newProduct) {
         currentProductCount++;
         print('currentProductCount${currentProductCount}');     //parse the product's images
@@ -63,6 +64,7 @@ class ProductScopedModel extends Model {
         addToProductsList(newProduct);
       },
     );
+    /*
     Shop2.forEach(
           (newProduct) {
         currentProductCount++;
@@ -89,6 +91,8 @@ class ProductScopedModel extends Model {
         addToProductsList(newProduct);
       },
     );
+
+     */
 
     List<ShopCategory> categoriesOfProductList = [];
 

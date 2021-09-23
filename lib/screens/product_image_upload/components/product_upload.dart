@@ -300,7 +300,7 @@ class _MyHomePageState extends State<UploadImageDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Containerm(
+      body: Container(
         padding: EdgeInsets.all(getProportionateScreenWidth(12)),
         height: getProportionateScreenWidth(340),
         width: getProportionateScreenWidth(340),

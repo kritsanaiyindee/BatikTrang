@@ -74,7 +74,8 @@ class ProductsListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              child:Image.asset('${product.images[0]}'),
+              //child:Image.asset('${product.images[0]}'),
+              child:Image.network('${weburi}${product.imageUrl}'),
               height: 160.0,
               width: MediaQuery.of(context).size.width / 2.2,
             ),
@@ -89,7 +90,7 @@ class ProductsListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  WrapingTextDetail(product.title),
+                  WrapingTextDetail(product.name!),
                  /* Text(
                     product.title,
                     style: TextStyle(fontSize: 16.0, color: Colors.grey),
