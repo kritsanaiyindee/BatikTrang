@@ -163,9 +163,12 @@ class _MyHomePageState extends State<UploadImageDemo> {
   }
 
   setStatus(String message) {
+    /*
     setState(() {
       status = message;
     });
+
+     */
   }
 
   startUpload(XFile xx) async {
