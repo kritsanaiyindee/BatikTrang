@@ -1,6 +1,9 @@
 import 'package:batiktrang/components/default_button.dart';
+import 'package:batiktrang/helper/keyboard.dart';
 import 'package:batiktrang/models/shopuser.dart';
 import 'package:batiktrang/screens/home/home_screen.dart';
+import 'package:batiktrang/screens/product_image_upload/components/product_upload.dart';
+import 'package:batiktrang/screens/product_image_upload/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:batiktrang/models/Product.dart';
 import 'package:batiktrang/screens/details/details_screen.dart';
@@ -135,17 +138,19 @@ class ProductsListItem extends StatelessWidget {
                             color:  kPrimaryColor
 
                         ),
-                        onPressed: () =>
+                        onPressed: () async {
+
+                            KeyboardUtil.hideKeyboard(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => UploadProductScreen(prd:product)),
+                            );
+                           // Navigator.pushNamed(context, UploadProductScreen.routeName);
+                            //Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+
+                        }
                           //  Navigator.pushNamed(context, HomeScreen.routeName),
-                        Fluttertoast.showToast(
-                            msg: "แก้ไข Product รอทำ function",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: logoColor,
-                            textColor: Colors.white,
-                            fontSize: 16.0
-                        )
+
                       ),
                       IconButton(
                         icon: SvgPicture.asset(

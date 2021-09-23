@@ -49,7 +49,7 @@ class _MyHomePageState extends State<UploadImageDemo> {
   final TextEditingController maxWidthController = TextEditingController();
   final TextEditingController maxHeightController = TextEditingController();
   final TextEditingController qualityController = TextEditingController();
-
+  String img_url_temp="assets/images/dummy.png";
   //
   static final String uploadEndPoint =
       'http://localhost/flutter_test/upload_image.php';
@@ -136,6 +136,12 @@ class _MyHomePageState extends State<UploadImageDemo> {
   }
 
   void initState() {
+    if(widget.prd!=null){
+      productName.text=widget.prd!.name!;
+      proDuctDescription.text=widget.prd!.description!;
+      productPrice.text=widget.prd!.price!;
+      img_url_temp=widget.prd!.imageUrl!;
+    }
     super.initState();
   }
 
@@ -224,8 +230,12 @@ class _MyHomePageState extends State<UploadImageDemo> {
                   width: 200,
                   height: 200,
                   fit: BoxFit.fill,
-                ):Image.asset(
-              "assets/images/dummy.png",
+                ):
+                (widget.prd!=null)?Image.network('${weburi}${widget.prd!.imageUrl}',fit:BoxFit.fill):
+
+
+                Image.asset(
+              "${img_url_temp}",
               height: 200,
               width: 200,
             ),
@@ -360,17 +370,17 @@ class _MyHomePageState extends State<UploadImageDemo> {
       'isFavourite': 0,
       'isready': 1,
     };
-    print('ddddddd  ${data}');
-    print('ddddddd  ${json.encode(data)}');
+    //print('ddddddd  ${data}');
+    //print('ddddddd  ${json.encode(data)}');
 
     // Starting Web API Call.
     var response = await http.post(url, body: json.encode(data));
-    print('ddddddd  ${response.body}');
+   // print('ddddddd  ${response.body}');
     // Getting Server response into variable.
     var message = jsonDecode(response.body);
     url = Uri.parse('${weburi}/load_product.php');
     var responsep = await http.post(url, body: json.encode(data));
-    print('ddddddd  ${responsep.body}');
+   // print('ddddddd  ${responsep.body}');
     // Getting Server response into variable.
     var messagep = jsonDecode(responsep.body);
     setState(() {
@@ -380,8 +390,9 @@ class _MyHomePageState extends State<UploadImageDemo> {
        productName.text="";
        proDuctDescription.text="";
        productPrice.text="";
+      print('Shop1====  ${Shop1.length}');
     });
-
+    Navigator.pop(context);
     // If Web call Success than Hide the CircularProgressIndicator.
     if (message == "true") {
       //  Navigator.pushNamed(context, HomeScreen.routeName);
@@ -657,6 +668,7 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
   @override
   void initState() {
     super.initState();
+
     controller!.addListener(_onVideoControllerUpdate);
   }
 
