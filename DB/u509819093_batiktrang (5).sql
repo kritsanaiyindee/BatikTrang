@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Sep 24, 2021 at 04:11 PM
+-- Generation Time: Sep 24, 2021 at 04:41 PM
 -- Server version: 10.5.12-MariaDB-cll-lve
 -- PHP Version: 7.2.34
 
@@ -196,7 +196,8 @@ CREATE TABLE `user_cart_item` (
 --
 
 INSERT INTO `user_cart_item` (`id`, `user_id`, `product_id`, `price_by`, `qty`, `updateat`) VALUES
-(1, 1, 7, 9000.00, 1, '2021-09-24 00:00:00');
+(4, 1, 21, 2000.00, 6, '2021-09-24 00:00:00'),
+(5, 1, 10, 9004.00, 1, '2021-09-24 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -278,7 +279,7 @@ ALTER TABLE `shop_user`
 -- AUTO_INCREMENT for table `user_cart_item`
 --
 ALTER TABLE `user_cart_item`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
