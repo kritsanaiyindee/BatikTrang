@@ -22,7 +22,11 @@ class _BodyState extends State<Body> {
     var data = {"user_id":"${usr.id}" };
     var url = Uri.parse('${weburi}/load_cart.php');
     var responsep = await http.post(url, body: json.encode(data));
-    print('ddddddd  ${responsep.body}');
+    print('ddddddd ---- ${responsep.body}---');
+    if(responsep.body=="false"){
+      demoCarts.clear();
+      return demoCarts;
+    }
     // Getting Server response into variable.
     var messagep = jsonDecode(responsep.body);
     //setState(() {
@@ -37,14 +41,24 @@ class _BodyState extends State<Body> {
       print('ddddddddddddd${prd.length}');
       print('ddddddddddddd${element.qty}');
       print('ddddddddddddd${int.tryParse('${element.qty!}')}');
-      demoCarts.add(Cart(product: prd[0], numOfItem: int.tryParse('${element.qty}')! ));
+      demoCarts.add(Cart(product: prd[0],id:element.id, numOfItem: int.tryParse('${element.qty}')! ));
     });
     print('${messagep}');
      return demoCarts;
    // });
   }
 
-
+  Future<bool> RemoveFromCart(Cart p) async {
+    var data = {"id":"${p.id}" };
+    var url = Uri.parse('${weburi}/delete_cart.php');
+    var responsep = await http.post(url, body: json.encode(data));
+    print('ddddddd  ${responsep.body}');
+    // Getting Server response into variable.
+    var messagep = jsonDecode(responsep.body);
+    print('${messagep}');
+    return true;
+    // });
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -64,7 +78,9 @@ class _BodyState extends State<Body> {
                   direction: DismissDirection.endToStart,
                   onDismissed: (direction) {
                     setState(() {
+                      RemoveFromCart(demoCarts[index]);
                       demoCarts.removeAt(index);
+
                     });
                   },
                   background: Container(
@@ -86,7 +102,7 @@ class _BodyState extends State<Body> {
             );
           } else {
             return Center(
-              child: CircularProgressIndicator(),
+              //child: CircularProgressIndicator(),
             );
           }
         },
