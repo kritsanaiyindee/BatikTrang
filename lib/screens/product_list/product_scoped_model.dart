@@ -44,13 +44,13 @@ class ProductScopedModel extends Model {
     print('shopid   ===========${shopid}');
     var shp=Shop1;
     if(shopid==1){
-      shp=Shop1.where((i) => i.shopId=="1").toList();;
+      shp=Shop1.where((i) => i.shopId=="1").toList();
     }else if(shopid==2){
-      shp=Shop1.where((i) => i.shopId=="2").toList();;
+      shp=Shop1.where((i) => i.shopId=="2").toList();
     }else if(shopid==3){
-      shp=Shop1.where((i) => i.shopId=="3").toList();;
+      shp=Shop1.where((i) => i.shopId=="3").toList();
     }else if(shopid==4){
-      shp=Shop1.where((i) => i.shopId=="4").toList();;
+      shp=Shop1.where((i) => i.shopId=="4").toList();
     }else{
       shp=Shop1;
     }

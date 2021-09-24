@@ -62,7 +62,7 @@ class _MyHomePageState extends State<UploadImageDemo> {
   final productName = TextEditingController();
   final proDuctDescription = TextEditingController();
   final productPrice = TextEditingController();
-
+  bool bCreate=true;
   Future<void> _playVideo(XFile? file) async {
     if (file != null && mounted) {
       await _disposeVideoController();
@@ -136,12 +136,17 @@ class _MyHomePageState extends State<UploadImageDemo> {
   }
 
   void initState() {
+    print('widget.prd!=null         ${widget.prd!=null}');
     if(widget.prd!=null){
+      bCreate=false;
       productName.text=widget.prd!.name!;
       proDuctDescription.text=widget.prd!.description!;
       productPrice.text=widget.prd!.price!;
       img_url_temp=widget.prd!.imageUrl!;
+    }else{
+      bCreate=true;
     }
+    print('bCreate         ${bCreate}');
     super.initState();
   }
 
@@ -181,26 +186,18 @@ class _MyHomePageState extends State<UploadImageDemo> {
     String fileName = xx.path.split('/').last;
     _uploadFileName = fileName;
     // print('<-----------${fileName}-------------->');
-    upload(fileName);
-  }
-
-  upload(String fileName) {
     var uploadEndPoint = Uri.parse('${weburi}/image_upload.php');
     //print('<-----------${weburi}/image_upload.php-------------->');
     //print('<-----------${uploadEndPoint.path}-------------->');
-    http.post(uploadEndPoint, body: {
+    var datax={
       "image": base64Image,
       "name": 'shop${_value}//${fileName}',
       "path": "shop${_value}"
-    }).then((result) {
-      print(
-          '<-------result.statusCode == 200----${result.statusCode == 200}-------------->');
-      setStatus(result.statusCode == 200 ? result.body : errMessage);
-    }).catchError((error) {
-      print('<-------result.statusCode == 200----${error}-------------->');
-      setStatus(error);
-    });
+    };
+    var response = await http.post(uploadEndPoint, body: json.encode(datax));
   }
+
+
 
   Widget _previewImages() {
     final Text? retrieveError = _getRetrieveErrorWidget();
@@ -271,13 +268,12 @@ class _MyHomePageState extends State<UploadImageDemo> {
             ),
           ),
           SizedBox(height: getProportionateScreenHeight(20)),
-              _isLoading ? CircularProgressIndicator():SizedBox(height: getProportionateScreenHeight(0)),
+
           DefaultButton(
             text: "บันทึก",
             press: () {
-              setState(() {
-                _isLoading = true;
-              });
+
+              showLoaderDialog(context);
               _createProductClick();
               // Navigator.pushNamed(context, OtpScreen.routeName);
             },
@@ -355,14 +351,41 @@ class _MyHomePageState extends State<UploadImageDemo> {
         },
         hint: Text("Select item"));
   }
-
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 7),child:Text("Loading..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
+  }
   _createProductClick() async {
     // SERVER API URL
-
-    await startUpload(_imageFileList![0]);
-    var url = Uri.parse('${weburi}/create_product.php');
+    print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    startUpload(_imageFileList![0]);
+    print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+    Uri url=Uri.parse('${weburi}/create_product.php');
+    print('xxxxxxxxxxxxxx${widget.prd}xxxxxxxxxxxxxxxxxxxxxxxx');
+    print('xxxxxxxxxxxxxx${!bCreate}xxxxxxxxxxxxxxxxxxxxxxxx');
+    String  idx='0';
+    if(!bCreate) {
+      url = Uri.parse('${weburi}/update_product.php');
+      idx='${widget.prd!.id}';
+    }else{
+      url = Uri.parse('${weburi}/create_product.php');
+    }
+    print('xxxxx2xxxxxxxxx${_uploadFileName}xxxxxxxxxxxxxxxxxxxxxxxx');
     var img_url = "/shop${_value}/${_uploadFileName}";
+    print('xxxxxx3xxxxxxxx${widget.prd}xxxxxxxxxxxxxxxxxxxxxxxx');
     var data = {
+      'id':'${idx}',
       'shopid': '${_value}',
       'name': '${productName.text}',
       'description': '${proDuctDescription.text}',
@@ -373,7 +396,8 @@ class _MyHomePageState extends State<UploadImageDemo> {
       'isFavourite': 0,
       'isready': 1,
     };
-    //print('ddddddd  ${data}');
+    print('xxxxxxxxxxxxxx${widget.prd}xxxxxxxxxxxxxxxxxxxxxxxx');
+    print('ddddddd  ${data}');
     //print('ddddddd  ${json.encode(data)}');
 
     // Starting Web API Call.
@@ -383,7 +407,7 @@ class _MyHomePageState extends State<UploadImageDemo> {
     var message = jsonDecode(response.body);
     url = Uri.parse('${weburi}/load_product.php');
     var responsep = await http.post(url, body: json.encode(data));
-   // print('ddddddd  ${responsep.body}');
+    print('ddddddd  ${responsep.body}');
     // Getting Server response into variable.
     var messagep = jsonDecode(responsep.body);
     setState(() {
@@ -398,6 +422,7 @@ class _MyHomePageState extends State<UploadImageDemo> {
     Navigator.pop(context);
     // If Web call Success than Hide the CircularProgressIndicator.
     if (message == "true") {
+      Navigator.pop(context);
       //  Navigator.pushNamed(context, HomeScreen.routeName);
 
     } else {
