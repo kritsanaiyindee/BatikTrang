@@ -4,6 +4,7 @@ import 'package:batiktrang/components/default_button.dart';
 import 'package:batiktrang/models/Product.dart';
 import 'package:batiktrang/size_config.dart';
 import 'package:batiktrang/models/Cart.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import '../../../constants.dart';
 import 'color_dots.dart';
@@ -75,6 +76,22 @@ class Body extends StatelessWidget {
 
     print('_signupClick  end');
   }
+
+  bool CheckShop(Product p){
+    bool isMatch=true;
+    ///demoCarts.clear();
+    demoCarts.forEach((element) {
+      if (element.product.shopId != p.shopId) {
+        print(' element.product.shopId  ${element.product.shopId}      ${p.shopId}');
+        isMatch = false;
+        return;
+      }
+    });
+
+
+
+    return isMatch;
+  }
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -105,11 +122,24 @@ class Body extends StatelessWidget {
                         child: DefaultButton(
                           text: "ลงตะกร้า",
                           press: () {
+                            if (CheckShop(product)){
+                              showLoaderDialog(context);
+                              _AddtoCart(context,product,qty);
+                            }else{
 
-                            showLoaderDialog(context);
-                            _AddtoCart(context,product,qty);
-                           // demoCarts.add(Cart(product: product, numOfItem: qty));
+                              Fluttertoast.showToast(
+                                  msg: "ไม่สามารถเลือกข้ามร้านค้าได้",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0
+                              );
+                              print('Not Match!');
+                            }
 
+                            // demoCarts.add(Cart(product: product, numOfItem: qty));
 
                           },
                         ),

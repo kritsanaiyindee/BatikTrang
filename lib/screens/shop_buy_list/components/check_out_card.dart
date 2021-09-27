@@ -56,7 +56,6 @@ class _CheckoutCardState extends State<CheckoutCard> {
     });
     var data = {
       'user_id':'${usr.id}',
-      'shop_id':'${demoCarts[0].product.shopId}',
       'total_buy': '${total_buy}',
       'total_item': '${total_item}',
     };
@@ -171,7 +170,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                   child: SvgPicture.asset("assets/icons/receipt.svg"),
                 ),
                 Spacer(),
-                Text("เก็บเงินปลายทาง"),
+                Text("ช่องทางการชำระเงิน"),
                 const SizedBox(width: 10),
                 Icon(
                   Icons.arrow_forward_ios,

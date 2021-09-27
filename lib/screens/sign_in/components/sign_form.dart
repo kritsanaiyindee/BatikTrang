@@ -32,6 +32,10 @@ class _SignFormState extends State<SignForm> {
   void initState() {
     emailController.text="thitipong49339@hotmail.com";
     passwordController.text="graf493310";
+
+
+    emailController.text='shop1@batik.com';
+    passwordController.text="Batik1234";
     super.initState();
   }
   void addError({String? error}) {

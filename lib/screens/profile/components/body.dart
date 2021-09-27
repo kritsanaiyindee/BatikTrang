@@ -2,6 +2,7 @@ import 'package:batiktrang/models/shopuser.dart';
 import 'package:batiktrang/screens/complete_profile/complete_profile_screen.dart';
 import 'package:batiktrang/screens/home/home_screen.dart';
 import 'package:batiktrang/screens/order_list/order_list.dart';
+import 'package:batiktrang/screens/shop_buy_list/shop_buy_list.dart';
 import 'package:flutter/material.dart';
 
 import 'profile_menu.dart';
@@ -49,7 +50,7 @@ class Body extends StatelessWidget {
               text: "ร้านของฉัน",
               icon: "assets/icons/ShopIcon.svg",
               press: () {
-
+                Navigator.pushNamed(context, ShopBuyListScreen.routeName);
               },
             ),
           ProfileMenu(

@@ -2,6 +2,7 @@ import 'package:batiktrang/screens/order_detail/order_detail.dart';
 import 'package:batiktrang/screens/order_list/order_list.dart';
 import 'package:batiktrang/screens/product_image_upload/product_screen.dart';
 import 'package:batiktrang/screens/product_list/product_list.dart';
+import 'package:batiktrang/screens/shop_buy_list/shop_buy_list.dart';
 import 'package:flutter/widgets.dart';
 import 'package:batiktrang/screens/cart/cart_screen.dart';
 import 'package:batiktrang/screens/complete_profile/complete_profile_screen.dart';
@@ -39,7 +40,7 @@ final Map<String, WidgetBuilder> routes = {
    UploadProductScreen.routeName: (context) => UploadProductScreen(),
   OrderListScreen.routeName: (context) => OrderListScreen(),
   OrderDetailScreen.routeName: (context) => OrderDetailScreen(),
-
+  ShopBuyListScreen.routeName: (context) => ShopBuyListScreen(),
   SignUpSellerScreen.routeName: (context) => SignUpSellerScreen(),
 
 

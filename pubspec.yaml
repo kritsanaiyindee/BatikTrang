@@ -39,6 +39,7 @@ dependencies:
   video_player: 2.1.2
   transparent_image: ^2.0.0
   pattern_formatter: ^2.0.0
+
   #future_progress_dialog: 0.2.0
 
 flutter_icons:

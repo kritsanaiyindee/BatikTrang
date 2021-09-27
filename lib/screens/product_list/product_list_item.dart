@@ -128,7 +128,10 @@ class ProductsListItem extends StatelessWidget {
 
                     ],
                   ),
-                  if(usr.email!=null)Row(
+                  if(usr.email!=null)
+                  if(usr.shopId==product.shopId)
+
+                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[

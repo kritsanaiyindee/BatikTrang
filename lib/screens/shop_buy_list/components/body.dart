@@ -22,19 +22,8 @@ class _BodyState extends State<Body> {
   List<ORder> ord = [];
 
   Future<List<ORder>> getMaster() async {
-    /*
-    if(usr.admin=="1") {
-      var data = {"shop": "${usr.shopId}"};
-      var url = Uri.parse('${weburi}/load_order_admin.php');
-      var responsep = await http.post(url, body: json.encode(data));
-      print('ddddddd ---- ${responsep.body}---');
-      // Getting Server response into variable.
-      var messagep = jsonDecode(responsep.body);
-      //setState(() {
-      ord = List<ORder>.from(messagep.map((model) => ORder.fromJson(model)));
-      print('${messagep}');
-      print('bbbbbbbbbbbbbbbbb${ord.length}');
-    }if(usr.vendor=="1"){
+
+
       var data = {"shop_id": "${usr.shopId}"};
       var url = Uri.parse('${weburi}/load_order_shop.php');
       var responsep = await http.post(url, body: json.encode(data));
@@ -47,24 +36,8 @@ class _BodyState extends State<Body> {
       print('bbbbbbbbbbbbbbbbb${ord.length}');
 
       return ord;
-    }else{
 
-     */
-      var data = {"user_id": "${usr.id}"};
-      var url = Uri.parse('${weburi}/load_order.php');
-      var responsep = await http.post(url, body: json.encode(data));
-      print('ddddddd ---- ${responsep.body}---');
-      // Getting Server response into variable.
-      var messagep = jsonDecode(responsep.body);
-      //setState(() {
-      ord = List<ORder>.from(messagep.map((model) => ORder.fromJson(model)));
-      print('${messagep}');
-      print('bbbbbbbbbbbbbbbbb${ord.length}');
 
-      return ord;
-    //}
-
-    // });
   }
 
   Future<bool> RemoveFromCart(Cart p) async {
