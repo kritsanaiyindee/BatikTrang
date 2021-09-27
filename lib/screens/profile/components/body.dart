@@ -1,6 +1,7 @@
 import 'package:batiktrang/models/shopuser.dart';
 import 'package:batiktrang/screens/complete_profile/complete_profile_screen.dart';
 import 'package:batiktrang/screens/home/home_screen.dart';
+import 'package:batiktrang/screens/order_list/order_list.dart';
 import 'package:flutter/material.dart';
 
 import 'profile_menu.dart';
@@ -25,13 +26,19 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "รายการสั่งซื้อ",
             icon: "assets/icons/receipt.svg",
-            press: () {},
+            press: () {
+              Navigator.pushNamed(context, OrderListScreen.routeName);
+
+            },
           ),
+          /*
           ProfileMenu(
             text: "ตั้งค่า",
             icon: "assets/icons/Settings.svg",
             press: () {},
           ),
+
+           */
           ProfileMenu(
             text: "ที่อยู่",
             icon: "assets/icons/Locationpoint.svg",

@@ -1,4 +1,6 @@
 import 'package:batiktrang/models/Cart.dart';
+import 'package:batiktrang/models/Order.dart';
+import 'package:batiktrang/models/OrderItem.dart';
 import 'package:batiktrang/models/shopuser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,14 +15,21 @@ import 'dart:convert';
 class CheckoutCard extends StatefulWidget {
   const CheckoutCard({
     Key? key,
+
   }) : super(key: key);
+
   @override
   _CheckoutCardState createState() => _CheckoutCardState();
 }
 
 class _CheckoutCardState extends State<CheckoutCard> {
+  double total=0;
 
+  @override
+  void initState() {
+    super.initState();
 
+  }
   showLoaderDialog(BuildContext context){
     AlertDialog alert=AlertDialog(
       content: new Row(
@@ -128,10 +137,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
 
   @override
   Widget build(BuildContext context) {
-    double total=0;
-    demoCarts.forEach((cart) {
-      total+=cart.numOfItem*double.parse('${cart.product.price}')  ;
-    });
+
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: getProportionateScreenWidth(15),
@@ -177,16 +183,6 @@ class _CheckoutCardState extends State<CheckoutCard> {
                   size: 12,
                   color: kTextColor,
                 ),
-                /*
-                Text("ช่องทางการสั่งซื้อ"),
-                const SizedBox(width: 10),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: kTextColor,
-                )
-
-                 */
               ],
             ),
             SizedBox(height: getProportionateScreenHeight(20)),
@@ -198,8 +194,19 @@ class _CheckoutCardState extends State<CheckoutCard> {
                     text: "จำนวน:\n",
                     children: [
                       TextSpan(
-                        text: "\฿${total}",
+                        text: "\฿${OrderTotalValue}",
                         style: TextStyle(fontSize: 16, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+                Text.rich(
+                  TextSpan(
+                    text: "สถานะ:\n",
+                    children: [
+                      TextSpan(
+                        text: "\฿${OrderStatus}",
+                        style: TextStyle(fontSize: 16, color: Colors.greenAccent),
                       ),
                     ],
                   ),
@@ -210,7 +217,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                     text: "สั่งซื้อ",
                     press: () {
                       showLoaderDialog(context);
-                      _createOrder();
+                      //_createOrder();
 
                     },
                   ),

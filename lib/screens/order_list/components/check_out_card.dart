@@ -170,7 +170,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                   child: SvgPicture.asset("assets/icons/receipt.svg"),
                 ),
                 Spacer(),
-                Text("เก็บเงินปลายทาง"),
+                Text("ช่องทางการชำระเงิน"),
                 const SizedBox(width: 10),
                 Icon(
                   Icons.arrow_forward_ios,

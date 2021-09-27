@@ -1,16 +1,18 @@
+import 'package:batiktrang/models/Order.dart';
 import 'package:flutter/material.dart';
 import 'package:batiktrang/models/Cart.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class CartCard extends StatefulWidget {
-  const CartCard({
+class OrderCard extends StatefulWidget {
+  const OrderCard({
     Key? key,
-    required this.cart,
+    required this.order,
   }) : super(key: key);
 
-  final Cart cart;
+  final ORder order;
   @override
   _CartCardState createState() => _CartCardState();
 }
@@ -19,12 +21,13 @@ class CartCard extends StatefulWidget {
 
 
 //class CartCard extends StatelessWidget {
-  class _CartCardState extends State<CartCard> {
+  class _CartCardState extends State<OrderCard> {
 
 
   @override
   Widget build(BuildContext context) {
     return Row(
+
       children: [
         SizedBox(
           width: 88,
@@ -36,8 +39,9 @@ class CartCard extends StatefulWidget {
                 color: Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child:Image.network('${weburi}${this.widget.cart.product.imageUrl}',fit:BoxFit.fill,),
-             // child: Image.asset(this.widget.cart.product.images[0]),
+             // child:Image.network('${weburi}${this.widget.cart.product.imageUrl}',fit:BoxFit.fill,),
+              child:new SvgPicture.asset('assets/icons/receipt.svg'),
+              //child: Image.asset( "assets/icons/receipt.svg"),
             ),
           ),
         ),
@@ -46,19 +50,31 @@ class CartCard extends StatefulWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              this.widget.cart.product.name!,
+              'Order No.${this.widget.order.id!}',
               style: TextStyle(color: Colors.black, fontSize: 16),
               maxLines: 2,
             ),
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: "\฿${this.widget.cart.product.price}",
+                text: "\฿${this.widget.order.totalBuy}",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
                 children: [
                   TextSpan(
-                      text: " x${this.widget.cart.numOfItem}",
+                      text: " ทั้งหมด ${this.widget.order.totalItem} รายการ",
+                      style: Theme.of(context).textTheme.bodyText1),
+                ],
+              ),
+            ),
+            Text.rich(
+              TextSpan(
+                text: "สถานะ:",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600, color: kPrimaryColor),
+                children: [
+                  TextSpan(
+                      text: "สั่งซื้อ",
                       style: Theme.of(context).textTheme.bodyText1),
                 ],
               ),

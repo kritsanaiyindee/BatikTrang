@@ -16,6 +16,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pattern_formatter/numeric_formatter.dart';
 import 'package:video_player/video_player.dart';
 import 'package:http/http.dart' as http;
 
@@ -503,8 +504,8 @@ class _MyHomePageState extends State<UploadImageDemo> {
     );
   }
 
-  TextFormField buildPriceFormField() {
-    return TextFormField(
+  TextField buildPriceFormField() {
+    return TextField(
       //initialValue: "kritsanai@harmonious.co.th",
       controller: productPrice,
       keyboardType: TextInputType.number,
@@ -517,16 +518,11 @@ class _MyHomePageState extends State<UploadImageDemo> {
         }
         return null;
       },
-      validator: (value) {
-        if (value!.isEmpty) {
-          // addError(error: kEmailNullError);
-          return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          // addError(error: kInvalidEmailError);
-          return "";
-        }
-        return null;
-      },
+
+      //keyboardType: TextInputType.number,
+      inputFormatters: [
+        ThousandsFormatter()
+      ],
       decoration: InputDecoration(
         labelText: "ราคา",
         hintText: "ระบุราคา",

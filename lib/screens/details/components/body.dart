@@ -22,7 +22,7 @@ class Body extends StatelessWidget {
       content: new Row(
         children: [
           CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 7),child:Text("Loading..." )),
+          Container(margin: EdgeInsets.only(left: 7),child:Text("สั่งซื้อ..." )),
         ],),
     );
     showDialog(barrierDismissible: false,

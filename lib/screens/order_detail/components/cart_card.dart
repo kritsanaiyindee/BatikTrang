@@ -1,3 +1,5 @@
+import 'package:batiktrang/models/OrderItem.dart';
+import 'package:batiktrang/models/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:batiktrang/models/Cart.dart';
 
@@ -7,10 +9,10 @@ import '../../../size_config.dart';
 class CartCard extends StatefulWidget {
   const CartCard({
     Key? key,
-    required this.cart,
+    required this.orderItem,
   }) : super(key: key);
 
-  final Cart cart;
+  final OrderItem orderItem;
   @override
   _CartCardState createState() => _CartCardState();
 }
@@ -24,6 +26,8 @@ class CartCard extends StatefulWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var shp=Shop1.where((i) => i.id==this.widget.orderItem.productId).toList();
     return Row(
       children: [
         SizedBox(
@@ -36,7 +40,7 @@ class CartCard extends StatefulWidget {
                 color: Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child:Image.network('${weburi}${this.widget.cart.product.imageUrl}',fit:BoxFit.fill,),
+              child:Image.network('${weburi}${shp[0].imageUrl}',fit:BoxFit.fill,),
              // child: Image.asset(this.widget.cart.product.images[0]),
             ),
           ),
@@ -46,19 +50,20 @@ class CartCard extends StatefulWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              this.widget.cart.product.name!,
+              //'xxxxxxs',
+              '${shp[0].name!}',
               style: TextStyle(color: Colors.black, fontSize: 16),
               maxLines: 2,
             ),
             SizedBox(height: 10),
             Text.rich(
               TextSpan(
-                text: "\฿${this.widget.cart.product.price}",
+                text: "\฿${this.widget.orderItem.priceBy}",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
                 children: [
                   TextSpan(
-                      text: " x${this.widget.cart.numOfItem}",
+                      text: " x${this.widget.orderItem.qty}",
                       style: Theme.of(context).textTheme.bodyText1),
                 ],
               ),

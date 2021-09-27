@@ -30,8 +30,8 @@ class _SignFormState extends State<SignForm> {
   final passwordController = TextEditingController();
   final List<String?> errors = [];
   void initState() {
-    emailController.text="admin@batik.com";
-    passwordController.text="Krit1234";
+    emailController.text="thitipong49339@hotmail.com";
+    passwordController.text="graf493310";
     super.initState();
   }
   void addError({String? error}) {

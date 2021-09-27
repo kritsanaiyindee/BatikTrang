@@ -1,3 +1,5 @@
+import 'package:batiktrang/screens/order_detail/order_detail.dart';
+import 'package:batiktrang/screens/order_list/order_list.dart';
 import 'package:batiktrang/screens/product_image_upload/product_screen.dart';
 import 'package:batiktrang/screens/product_list/product_list.dart';
 import 'package:flutter/widgets.dart';
@@ -35,6 +37,8 @@ final Map<String, WidgetBuilder> routes = {
   "/shop4": (context) => ProductsListScreen(shop:4),
   "/ProductsList": (context) => ProductsListScreen(shop:1),
    UploadProductScreen.routeName: (context) => UploadProductScreen(),
+  OrderListScreen.routeName: (context) => OrderListScreen(),
+  OrderDetailScreen.routeName: (context) => OrderDetailScreen(),
 
   SignUpSellerScreen.routeName: (context) => SignUpSellerScreen(),
 

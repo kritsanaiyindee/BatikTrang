@@ -75,6 +75,7 @@ class _BodyState extends State<Body> {
                       text: "ถัดไป",
                       press: () async {
                         var data = { };
+                        showLoaderDialog(context);
                         var url = Uri.parse('${weburi}/load_product.php');
                         var responsep = await http.post(url, body: json.encode(data));
                         print('ddddddd  ${responsep.body}');
@@ -97,7 +98,21 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-
+  showLoaderDialog(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 7),child:Text("เข้าสู่ระบบ..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
+  }
   AnimatedContainer buildDot({int? index}) {
     return AnimatedContainer(
       duration: kAnimationDuration,
