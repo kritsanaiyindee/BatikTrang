@@ -14,7 +14,9 @@ $user_id = $obj['user_id'];
 
 
 
-$CheckSQL = "SELECT * FROM user_cart_item where user_id='$user_id' ";
+//$CheckSQL = "SELECT a.id,a.user_id,a.total_buy,a.total_item,a.createat,b.order_id,b.user_idb,b.product_id,b.price_by,b.qtyb FROM `user_order` a  INNER join user_order_item b ON a.id=b.order_id where a.user_id='$user_id' ";
+
+$CheckSQL = "SELECT a.id,a.user_id,a.total_buy,a.total_item,a.createat,a.status FROM `user_order` a   where a.user_id='$user_id' ";
 
 // Executing Email Check MySQL Query.
 $check = mysqli_fetch_array(mysqli_query($conn,$CheckSQL));
