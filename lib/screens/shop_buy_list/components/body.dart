@@ -72,6 +72,7 @@ class _BodyState extends State<Body> {
                         OrderTotalValue=double.tryParse('${ord[position].totalBuy}')!;
                         order.clear();
                         order.add(ord[position]);
+                        isOrderTail=false;
                       });
 
 

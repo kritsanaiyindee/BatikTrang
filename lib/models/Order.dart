@@ -1,3 +1,5 @@
+import 'package:batiktrang/constants.dart';
+
 class ORder {
   String? id;
   String? userId;
@@ -5,8 +7,9 @@ class ORder {
   String? totalItem;
   String? createat;
   String? status;
+  String? statusText;
   ORder(
-      {this.id, this.userId, this.totalBuy, this.totalItem, this.createat,this.status});
+      {this.id, this.userId, this.totalBuy, this.totalItem, this.createat,this.status,this.statusText});
 
   ORder.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -15,6 +18,7 @@ class ORder {
     totalItem = json['total_item'];
     createat = json['createat'];
     status = json['status'];
+    statusText = GlobalFunction.getStatus('${json['status']}');
   }
 
   Map<String, dynamic> toJson() {
@@ -25,9 +29,11 @@ class ORder {
     data['total_item'] = this.totalItem;
     data['createat'] = this.createat;
     data['status'] = this.status;
+    data['statusText'] = this.statusText;
     return data;
   }
 }
 List<ORder> order = [];
 double OrderTotalValue=0;
 String OrderStatus="สั่งซื้อ";
+bool isOrderTail=true;

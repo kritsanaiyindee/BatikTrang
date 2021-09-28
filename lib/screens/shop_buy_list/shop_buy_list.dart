@@ -31,13 +31,7 @@ class ShopBuyListScreen extends StatelessWidget {
             "รายการสั่งซื้อในร้าน",
             style: TextStyle(color: Colors.black),
           ),
-          /*
-          Text(
-            "${demoCarts.length} รายการ",
-            style: Theme.of(context).textTheme.caption,
-          ),
 
-           */
         ],
       ),
     );

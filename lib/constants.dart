@@ -51,3 +51,51 @@ OutlineInputBorder outlineInputBorder() {
     borderSide: BorderSide(color: kTextColor),
   );
 }
+
+class GlobalFunction {
+  static void printGlobal(String message) {
+    //if(!Url_config.bCRM)
+    print("GlobalMessage  ${message}");
+  }
+  static String getStatusText(int StatusValue){
+    var OrderStatus="";
+    if(StatusValue==0){
+      OrderStatus="สั่งซื้อ";
+    }else if(StatusValue==1){
+      OrderStatus="ส่งของ";
+    }else if(StatusValue==2){
+      OrderStatus="รอจัดของ";
+    }else if(StatusValue==3){
+      OrderStatus="ยกเลิก";
+    }else if(StatusValue==4){
+      OrderStatus="รับของแล้ว";
+    }else if(StatusValue==5){
+      OrderStatus="เสร็จสิ้น";
+    }else{
+      OrderStatus="สั่งซื้อ";
+    }
+    return OrderStatus;
+  }
+  static String getStatus(String StatusValue){
+
+    var OrderStatus="";
+    if(StatusValue=="0"){
+      OrderStatus="สั่งซื้อ";
+    }else if(StatusValue=="1"){
+      OrderStatus="ส่งของ";
+    }else if(StatusValue=="2"){
+      OrderStatus="รอจัดของ";
+    }else if(StatusValue=="3"){
+      OrderStatus="ยกเลิก";
+    }else if(StatusValue=="4"){
+      OrderStatus="รับของแล้ว";
+    }else if(StatusValue=="5"){
+      OrderStatus="เสร็จสิ้น";
+    }else{
+      OrderStatus="สั่งซื้อ";
+    }
+    print("GlobalMessage StatusValue ${StatusValue}");
+    print("GlobalMessage OrderStatus ${OrderStatus}");
+    return OrderStatus;
+  }
+}

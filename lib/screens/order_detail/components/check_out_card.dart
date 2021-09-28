@@ -2,6 +2,8 @@ import 'package:batiktrang/models/Cart.dart';
 import 'package:batiktrang/models/Order.dart';
 import 'package:batiktrang/models/OrderItem.dart';
 import 'package:batiktrang/models/shopuser.dart';
+import 'package:batiktrang/screens/home/home_screen.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:batiktrang/components/default_button.dart';
@@ -24,7 +26,7 @@ class CheckoutCard extends StatefulWidget {
 
 class _CheckoutCardState extends State<CheckoutCard> {
   double total=0;
-
+  int canJoin =int.parse('${order[0].status}');
   @override
   void initState() {
     super.initState();
@@ -45,31 +47,150 @@ class _CheckoutCardState extends State<CheckoutCard> {
       },
     );
   }
+  showLoaderDialogStatus(BuildContext context){
+    AlertDialog alert=AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(margin: EdgeInsets.only(left: 7),child:Text("อัพเดตสถานะ..." )),
+        ],),
+    );
+    showDialog(barrierDismissible: false,
+      context:context,
+      builder:(BuildContext context){
+        return alert;
+      },
+    );
+  }
+  Future _showDialog(context) async {
+    return await showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                Expanded(
+                  child: SizedBox(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          if(!isOrderTail)Row(
+                            children: [
+                              Radio(
+                                value: 1,
+                                groupValue: canJoin,
+                                onChanged: (value) {
+                                  setState(() {
+                                    canJoin = int.parse('${value}');
+                                    GlobalFunction.getStatusText(canJoin);
+                                  });
+                                },
+                              ),
+                              Text("ส่งของ", style: TextStyle(fontSize: 18)),
+                            ],
+                          ),
+                          if(!isOrderTail)Row(
+                            children: [
+                              Radio(
+                                value: 2,
+                                groupValue: canJoin,
+                                onChanged: (value) {
+                                  setState(() {
+                                    canJoin = int.parse('${value}');
+                                    GlobalFunction.getStatusText(canJoin);
+                                  });
+                                },
+                              ),
+                              Text("รอจัดของ", style: TextStyle(fontSize: 18)),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: 3,
+                                groupValue: canJoin,
+                                onChanged: (value) {
+                                  setState(() {
 
+                                    canJoin = int.parse('${value}');
+                                    GlobalFunction.getStatusText(canJoin);
+                                  });
+                                },
+                              ),
+                              Text("ยกเลิก", style: TextStyle(fontSize: 18)),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: 4,
+                                groupValue: canJoin,
+                                onChanged: (value) {
+                                  setState(() {
+
+                                    canJoin = int.parse('${value}');
+                                    GlobalFunction.getStatusText(canJoin);
+                                  });
+                                },
+                              ),
+                              Text("รับของแล้ว", style: TextStyle(fontSize: 18)),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Radio(
+                                value: 5,
+                                groupValue: canJoin,
+                                onChanged: (value) {
+                                  setState(() {
+
+                                    canJoin = int.parse('${value}');
+                                    GlobalFunction.getStatusText(canJoin);
+                                  });
+                                },
+                              ),
+                              Text("เสร็จสิ้น", style: TextStyle(fontSize: 18)),
+                            ],
+                          ),
+                          DefaultButton(
+                            text: "อัพเดตสถานะ",
+                            press: () {
+                              showLoaderDialogStatus(context);
+                              _UpdateStatus();
+
+                              //_createOrder();
+
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                //your code dropdown button here
+              ]);
+            },
+          ),
+        );
+      },
+    );
+  }
 //class CheckoutCard extends StatelessWidget {
-  _createOrder() async {
+  _UpdateStatus() async {
     // SERVER API URL
 
     print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-    Uri url=Uri.parse('${weburi}/create_order.php');
-
-
-    //print('xxxxx2xxxxxxxxx${_uploadFileName}xxxxxxxxxxxxxxxxxxxxxxxx');
-    //var img_url = "/shop${_value}/${_uploadFileName}";
-    //print('xxxxxx3xxxxxxxx${widget.prd}xxxxxxxxxxxxxxxxxxxxxxxx');
-    double total_buy=0;
-    double total_item=0;
-    demoCarts.forEach((cart) {
-      total_buy+=cart.numOfItem*double.parse('${cart.product.price}')  ;
-      total_item+=cart.numOfItem.toDouble();
-    });
+    Uri url=Uri.parse('${weburi}/update_order_status.php');
     var data = {
-      'user_id':'${usr.id}',
-      'total_buy': '${total_buy}',
-      'total_item': '${total_item}',
+      'order_id':'${order[0].id}',
+      'status': '${canJoin}',
     };
     //print('xxxxxxxxxxxxxx${widget.prd}xxxxxxxxxxxxxxxxxxxxxxxx');
     print('post date  ${data}');
+    setState(() {
+      GlobalFunction.getStatusText(canJoin);
+    });
     //print('ddddddd  ${json.encode(data)}');
 
     // Starting Web API Call.
@@ -77,60 +198,8 @@ class _CheckoutCardState extends State<CheckoutCard> {
     // print('ddddddd  ${response.body}');
     // Getting Server response into variable.
     var orderid = jsonDecode(response.body);
-    print('return id  ${orderid}');
-    url = Uri.parse('${weburi}/create_order_item.php');
-    var messagep="false";
-    demoCarts.forEach((cart)  async {
-      var data_item = {
-        'order_id':'${orderid}',
-        'user_id':'${usr.id}',
-        'product_id': '${cart.product.id}',
-        'price_by': '${cart.product.price}',
-        'qty': '${cart.numOfItem}',
-      };
-      print('post data_item  ${data_item}');
-      var responsep = http.post(url, body: json.encode(data_item)).then((value) =>() {
-      print('responsep  ${value.statusCode}');
-          messagep = jsonDecode(value.body);
-      print('ddddddd  ${value.body}');
-    }
-      );
-      //    print('responsep  ${responsep.body}');
-      //    messagep = jsonDecode(responsep.body);
-      //    print('ddddddd  ${responsep.body}');
 
-    });
-
-
-
-    //var responsep = await http.post(url, body: json.encode(data));
-    //print('ddddddd  ${responsep.body}');
-    // Getting Server response into variable.
-    //var messagep = jsonDecode(responsep.body);
-    print('post messagep  ${messagep}');
-    Navigator.pop(context);
-    // If Web call Success than Hide the CircularProgressIndicator.
-   // if (messagep == "true") {
-      url = Uri.parse('${weburi}/delete_cart_all.php');
-      var data_item = {
-        'user_id':'${usr.id}',
-      };
-      print('post data_item  ${data_item}');
-      var responsep = await http.post(url, body: json.encode(data_item));
-      messagep = jsonDecode(responsep.body);
-      print('clear cart  ${responsep.body}');
-
-
-      demoCarts.clear();
-      Navigator.pop(context);
-      //  Navigator.pushNamed(context, HomeScreen.routeName);
-
-   // } else {
-      //  addError(error: kAlreadyHavethisUser);
-
-   // }
-
-    print('_signupClick  end');
+    Navigator.pushNamed(context, HomeScreen.routeName);
   }
 
 
@@ -205,7 +274,12 @@ class _CheckoutCardState extends State<CheckoutCard> {
                     text: "สถานะ:\n",
                     children: [
                       TextSpan(
-                        text: "\฿${OrderStatus}",
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            print('xxxxxxxxxxxxxx');
+                            _showDialog(context);
+                          },
+                        text: "${order[0].statusText!}",
                         style: TextStyle(fontSize: 16, color: Colors.greenAccent),
                       ),
                     ],
@@ -214,7 +288,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                 if(demoCarts.length>0)SizedBox(
                   width: getProportionateScreenWidth(90),
                   child: DefaultButton(
-                    text: "สั่งซื้อ",
+                    text: "สั้งซ์้อ",
                     press: () {
                       showLoaderDialog(context);
                       //_createOrder();

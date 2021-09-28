@@ -187,30 +187,9 @@ class _BodyState extends State<Body> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Dismissible(
-                    key: Key(ordItem[index].id.toString()),
-                    direction: DismissDirection.endToStart,
-                    onDismissed: (direction) {
-                      setState(() {
-                        //  RemoveFromCart(demoCarts[index]);
-                        //  demoCarts.removeAt(index);
-                      });
-                    },
-                    background: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFFE6E6),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Row(
-                        children: [
-                          Spacer(),
-                          SvgPicture.asset("assets/icons/Trash.svg"),
-                        ],
-                      ),
-                    ),
+
                     child: CartCard(orderItem: ordItem[index]),
-                  ),
+
                 );
               },
             );

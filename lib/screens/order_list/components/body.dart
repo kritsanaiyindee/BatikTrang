@@ -95,12 +95,16 @@ class _BodyState extends State<Body> {
                     //You need to make my child interactive
 
                     onTap: ()  {
-                      setState(() {
+                      //setState(() {
+
                         OrderTotalValue=double.tryParse('${ord[position].totalBuy}')!;
                         order.clear();
                         order.add(ord[position]);
-                      });
-
+                        isOrderTail=true;
+                      //});
+                      print('xxxxxxxxxxxxxxxxxxxxxxxx  ${ord[position].status} xxxxxxxxxxxxxxxxxxxxxxxxxxx');
+                      print('xxxxxxxxxxxxxxxxxxxxxxxx  ${order.length} xxxxxxxxxxxxxxxxxxxxxxxxxxx');
+                      print('xxxxxxxxxxxxxxxxxxxxxxxx  ${order[0].status} xxxxxxxxxxxxxxxxxxxxxxxxxxx');
 
 
                           Navigator.pushNamed(

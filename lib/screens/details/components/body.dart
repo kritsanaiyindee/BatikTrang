@@ -122,6 +122,7 @@ class Body extends StatelessWidget {
                         child: DefaultButton(
                           text: "ลงตะกร้า",
                           press: () {
+
                             if (CheckShop(product)){
                               showLoaderDialog(context);
                               _AddtoCart(context,product,qty);

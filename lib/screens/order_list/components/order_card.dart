@@ -74,7 +74,7 @@ class OrderCard extends StatefulWidget {
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
                 children: [
                   TextSpan(
-                      text: "สั่งซื้อ",
+                      text: "${GlobalFunction.getStatus(this.widget.order.status!)}",
                       style: Theme.of(context).textTheme.bodyText1),
                 ],
               ),

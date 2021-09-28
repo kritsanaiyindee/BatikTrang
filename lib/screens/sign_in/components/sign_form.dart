@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:batiktrang/models/Cart.dart';
 import 'package:batiktrang/models/Product.dart';
 import 'package:batiktrang/models/productModel.dart';
 import 'package:batiktrang/models/shopuser.dart';
@@ -66,23 +67,19 @@ class _SignFormState extends State<SignForm> {
     print('ddddddd  ${response.body}');
     // Getting Server response into variable.
     var message = jsonDecode(response.body);
+
+
+
     List<ShopUser> CRO = List<ShopUser>.from(
         message.map((model) => ShopUser.fromJson(model)));
     // If Web call Success than Hide the CircularProgressIndicator.
     if(CRO.length>0){
       //Navigator.pushNamed(context, HomeScreen.routeName);
       usr=CRO[0];
-      /*
-      var url = Uri.parse('${weburi}/load_product.php');
-      var responsep = await http.post(url, body: json.encode(data));
-      print('ddddddd  ${responsep.body}');
-      // Getting Server response into variable.
-      var messagep = jsonDecode(responsep.body);
-      setState(() {
-        Shop1 = List<Product>.from(
-            messagep.map((model) => Product.fromJson(model)));
+      //demoCarts.clear();
+      demoCarts.forEach((element) {
+        
       });
-*/
 
 
 

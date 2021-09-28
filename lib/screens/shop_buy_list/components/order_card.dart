@@ -1,4 +1,5 @@
 import 'package:batiktrang/models/Order.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:batiktrang/models/Cart.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,21 +14,35 @@ class OrderCard extends StatefulWidget {
   }) : super(key: key);
 
   final ORder order;
+
   @override
   _CartCardState createState() => _CartCardState();
 }
 
-
-
+Future _showDialog(context) async {
+  return await showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              Text('yyy'),
+              Text('xxx')
+              //your code dropdown button here
+            ]);
+          },
+        ),
+      );
+    },
+  );
+}
 
 //class CartCard extends StatelessWidget {
-  class _CartCardState extends State<OrderCard> {
-
-
+class _CartCardState extends State<OrderCard> {
   @override
   Widget build(BuildContext context) {
     return Row(
-
       children: [
         SizedBox(
           width: 88,
@@ -39,8 +54,8 @@ class OrderCard extends StatefulWidget {
                 color: Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-             // child:Image.network('${weburi}${this.widget.cart.product.imageUrl}',fit:BoxFit.fill,),
-              child:new SvgPicture.asset('assets/icons/receipt.svg'),
+              // child:Image.network('${weburi}${this.widget.cart.product.imageUrl}',fit:BoxFit.fill,),
+              child: new SvgPicture.asset('assets/icons/receipt.svg'),
               //child: Image.asset( "assets/icons/receipt.svg"),
             ),
           ),
@@ -74,7 +89,12 @@ class OrderCard extends StatefulWidget {
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
                 children: [
                   TextSpan(
-                      text: "สั่งซื้อ",
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                        print('xxxxxxxxxxxxxx');
+                          _showDialog(context);
+                        },
+                      text: "${GlobalFunction.getStatus(this.widget.order.status!)}",
                       style: Theme.of(context).textTheme.bodyText1),
                 ],
               ),
@@ -85,3 +105,4 @@ class OrderCard extends StatefulWidget {
     );
   }
 }
+
