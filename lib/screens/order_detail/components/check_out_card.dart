@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:batiktrang/models/Cart.dart';
 import 'package:batiktrang/models/Order.dart';
 import 'package:batiktrang/models/OrderItem.dart';
@@ -195,7 +197,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
 
     // Starting Web API Call.
     var response = await http.post(url, body: json.encode(data));
-    // print('ddddddd  ${response.body}');
+     log('ddddddd  ${response.body}');
     // Getting Server response into variable.
     var orderid = jsonDecode(response.body);
 

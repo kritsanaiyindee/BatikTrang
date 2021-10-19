@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:batiktrang/models/Cart.dart';
 import 'package:batiktrang/models/Product.dart';
 import 'package:batiktrang/models/productModel.dart';
@@ -37,6 +38,10 @@ class _SignFormState extends State<SignForm> {
 
     emailController.text='shop1@batik.com';
     passwordController.text="Batik1234";
+
+
+    emailController.text='';
+    passwordController.text="";
     super.initState();
   }
   void addError({String? error}) {
@@ -81,6 +86,32 @@ class _SignFormState extends State<SignForm> {
         
       });
 
+      //var data = { };
+      print('usr.vendor==1  ${usr.vendor=='1'}');
+      if(usr.vendor=='1'){
+        var datas = { 'shop_id':'${usr.shopId}' };
+        var url = Uri.parse('${weburi}/load_product_shop.php');
+        var responsep = await http.post(url, body: json.encode(datas));
+        log('ddddddd  ${responsep.body}');
+        // Getting Server response into variable.
+        var messagep = jsonDecode(responsep.body);
+        setState(() {
+          Shop1 = List<Product>.from(
+              messagep.map((model) => Product.fromJson(model)));
+        });
+      }else{
+        var datas = {  };
+        var url = Uri.parse('${weburi}/load_product.php');
+        var responsep = await http.post(url, body: json.encode(datas));
+        log('ddddddd  ${responsep.body}');
+        // Getting Server response into variable.
+        var messagep = jsonDecode(responsep.body);
+        setState(() {
+          Shop1 = List<Product>.from(
+              messagep.map((model) => Product.fromJson(model)));
+        });
+
+      }
 
 
 

@@ -130,6 +130,70 @@ class ProductScopedModel extends Model {
     _hasModeProducts = false;
     notifyListeners();
   }
+
+
+  Future parseProductsFromResponseSearch(String txtSearch) async {
+    _productsList= [];
+    //print('xxxxx${_productsList.length}');
+    //if (pageIndex == 1) {
+      _isLoading = true;
+    //}
+
+    notifyListeners();
+
+    currentProductCount = 0;
+    var shp=Shop1;
+    shp=Shop1.where((i) => i.description!.contains(txtSearch) ||i.name!.contains(txtSearch)).toList();
+
+    //var dataFromResponse = await _getProductsByCategory(categoryId, pageIndex);
+
+    shp.forEach(
+          (newProduct) {
+        currentProductCount++;
+        print('currentProductCount${currentProductCount}');     //parse the product's images
+        //parse the product's categories
+        addToProductsList(newProduct);
+      },
+    );
+
+
+    List<ShopCategory> categoriesOfProductList = [];
+
+
+    categoriesOfProductList.add(
+        new ShopCategory(
+          id: 1,
+          name:"โชคกมลรัตน์ผ้าบาติก",
+        )
+    );
+    categoriesOfProductList.add(
+        new ShopCategory(
+          id: 1,
+          name:"โต๊ะเมืองบาติก",
+        )
+    );
+    categoriesOfProductList.add(
+        new ShopCategory(
+          id: 1,
+          name:"พญาบาติก",
+        )
+    );
+    categoriesOfProductList.add(
+        new ShopCategory(
+          id: 1,
+          name:"พีเจบาติก",
+        )
+    );
+
+    //if (pageIndex == 1)
+     _isLoading = false;
+
+    if (currentProductCount < 6) {
+      _hasModeProducts = false;
+    }
+    _hasModeProducts = false;
+    notifyListeners();
+  }
 /*
   Future parseProductsFromResponse(int categoryId, int pageIndex) async {
 

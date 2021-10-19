@@ -1,9 +1,13 @@
 <?php
-$servername = "156.67.222.106";
-$username = "u509819093_XXXXXX";
-$password = "XXXXX";
-$dbname = "u509819093_XXXXX;
+$servername = "localhost";
+$username = "id17601062_u509819093_batiktranguser";
+$password = "|ZnG!1ro{-dmDsIZ";
+$dbname = "id17601062_u509819093_batiktrangdb";
 
+
+//u509819093_batiktrangdb
+//u509819093_batiktranguser
+//|ZnG!1ro{-dmDsIZ
 
    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         header('Access-Control-Allow-Origin: *');

@@ -1,5 +1,6 @@
 import 'package:batiktrang/models/Cart.dart';
 import 'package:batiktrang/models/shopuser.dart';
+import 'package:batiktrang/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:batiktrang/components/default_button.dart';
@@ -210,8 +211,12 @@ class _CheckoutCardState extends State<CheckoutCard> {
                   child: DefaultButton(
                     text: "สั่งซื้อ",
                     press: () {
-                      showLoaderDialog(context);
-                      _createOrder();
+                      if(usr.email==null){
+                        Navigator.pushNamed(context, SignInScreen.routeName);
+                      }else{
+                        showLoaderDialog(context);
+                        _createOrder();
+                      }
 
                     },
                   ),

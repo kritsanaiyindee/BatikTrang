@@ -20,7 +20,8 @@ final headingStyle = TextStyle(
   color: Colors.black,
   height: 1.5,
 );
-const weburi="https://batiktrang.000webhostapp.com";
+const weburi="http://batiktrang.psautocar.com";
+//const weburi="https://batiktrang.000webhostapp.com";
 const defaultDuration = Duration(milliseconds: 250);
 
 // Form Error
@@ -75,6 +76,7 @@ class GlobalFunction {
       OrderStatus="สั่งซื้อ";
     }
     return OrderStatus;
+
   }
   static String getStatus(String StatusValue){
 

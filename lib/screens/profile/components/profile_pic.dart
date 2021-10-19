@@ -92,13 +92,13 @@ class ProfilePic extends StatelessWidget {
         source: source,
         maxWidth: 200,
         maxHeight: 200,
-        //imageQuality: 70,
+        //imageQuality: 70,z
       );
       // setState(() {
 
       print('<-----------${pickedFile!.path}-------------->');
       _imageFile = pickedFile;
-      startUpload(pickedFile);
+      await startUpload(pickedFile);
 
       Uri url=Uri.parse('${weburi}/update_user.php');
       //print('xxxxx2xxxxxxxxx${_uploadFileName}xxxxxxxxxxxxxxxxxxxxxxxx');
@@ -128,7 +128,7 @@ class ProfilePic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('${weburi}${usr.profile}?v=${formattedDate}');
+    print('${weburi}/${usr.profile}?v=${formattedDate}');
     DateTime now = DateTime.now();
     formattedDate = DateFormat('yyyyMMddkkmmss').format(now);
     return SizedBox(
@@ -146,7 +146,7 @@ class ProfilePic extends StatelessWidget {
               : CircleAvatar(
                   // backgroundImage: (_imageFileList == null)?AssetImage("assets/images/Profile Image.png"):NetworkImage('${_imageFileList![0].path}')
                   backgroundImage:
-                  NetworkImage('${weburi}${usr.profile}?v=${formattedDate}')))),
+                  NetworkImage('${weburi}/${usr.profile}?v=${formattedDate}')))),
           Positioned(
             right: -16,
             bottom: 0,

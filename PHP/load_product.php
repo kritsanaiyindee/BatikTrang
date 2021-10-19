@@ -8,13 +8,13 @@ if ($conn->connect_error) {
 }
 
 
-$CheckSQL = "SELECT * FROM product ";
-
+$CheckSQL = "SELECT * FROM product "; 
+	 
 // Executing Email Check MySQL Query.
-$check = mysqli_fetch_array(mysqli_query($conn,$CheckSQL));
-
+$check = mysqli_fetch_array(mysqli_query($conn,$CheckSQL)); 
+ 
 // $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
-if(isset($check)){
+if(isset($check)){ 
     $sth = mysqli_query($conn,$CheckSQL);
     $rows = array();
     while($r = mysqli_fetch_assoc($sth)) {
@@ -23,14 +23,14 @@ if(isset($check)){
     echo json_encode($rows);
   }
  else{
-  $emailExist = 'false';
+  $emailExist = 'false';	 
 	 // Converting the message into JSON format.
-	$existEmailJSON = json_encode($emailExist);
+	$existEmailJSON = json_encode($emailExist);	 
 	// Echo the message on Screen.
-	 echo $existEmailJSON ;
-
+	 echo $existEmailJSON ; 
+	 
  }
-
+ 
  mysqli_close($conn)
-
+ 
 ?>

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:batiktrang/models/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:batiktrang/constants.dart';
@@ -75,10 +77,11 @@ class _BodyState extends State<Body> {
                       text: "ถัดไป",
                       press: () async {
                         var data = { };
+
                         showLoaderDialog(context);
                         var url = Uri.parse('${weburi}/load_product.php');
                         var responsep = await http.post(url, body: json.encode(data));
-                        print('ddddddd  ${responsep.body}');
+                        log('ddddddd  ${responsep.body}');
                         // Getting Server response into variable.
                         var messagep = jsonDecode(responsep.body);
                         setState(() {
@@ -103,7 +106,7 @@ class _BodyState extends State<Body> {
       content: new Row(
         children: [
           CircularProgressIndicator(),
-          Container(margin: EdgeInsets.only(left: 7),child:Text("เข้าสู่ระบบ..." )),
+          Container(margin: EdgeInsets.only(left: 7),child:Text("" )),
         ],),
     );
     showDialog(barrierDismissible: false,

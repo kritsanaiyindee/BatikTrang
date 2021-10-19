@@ -12,6 +12,7 @@ import 'package:batiktrang/components/custom_surfix_icon.dart';
 import 'package:batiktrang/components/default_button.dart';
 import 'package:batiktrang/constants.dart';
 import 'package:batiktrang/models/Product.dart';
+import 'package:batiktrang/models/shopuser.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -148,6 +149,7 @@ class _MyHomePageState extends State<UploadImageDemo> {
       bCreate=true;
     }
     print('bCreate         ${bCreate}');
+    _value=int.parse('${usr.shopId}');
     super.initState();
   }
 
@@ -326,6 +328,7 @@ class _MyHomePageState extends State<UploadImageDemo> {
   Widget ddlShop() {
     return new DropdownButton(
         value: _value,
+        onChanged: null,
         items: [
           DropdownMenuItem(
             child: Text("โชคกมลรัตน์บาติก"),
@@ -344,12 +347,15 @@ class _MyHomePageState extends State<UploadImageDemo> {
             value: 4,
           )
         ],
+        /*
         onChanged: (newValue) {
           setState(() {
             _value = newValue as int;
             print('val   ${_value}');
           });
         },
+
+         */
         hint: Text("Select item"));
   }
   showLoaderDialog(BuildContext context){
