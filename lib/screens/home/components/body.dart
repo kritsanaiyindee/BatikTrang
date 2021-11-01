@@ -1,3 +1,4 @@
+import 'package:batiktrang/screens/home/components/shop_location.dart';
 import 'package:flutter/material.dart';
 
 import '../../../size_config.dart';
@@ -19,6 +20,8 @@ class Body extends StatelessWidget {
             SizedBox(height: getProportionateScreenWidth(10)),
            // DiscountBanner(),
             Categories(),
+            SizedBox(height: getProportionateScreenWidth(10)),
+            ShopLocations(),
            // SpecialOffers(),
             SizedBox(height: getProportionateScreenWidth(30)),
             PopularProducts(),

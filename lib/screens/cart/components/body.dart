@@ -80,7 +80,7 @@ class _BodyState extends State<Body> {
                     setState(() {
                       RemoveFromCart(demoCarts[index]);
                       demoCarts.removeAt(index);
-
+                      Navigator.pushNamed(context,"/map");
                     });
                   },
                   background: Container(

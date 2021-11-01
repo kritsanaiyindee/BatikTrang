@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:batiktrang/models/Cart.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
+import '../cart_screen.dart';
 class CartCard extends StatefulWidget {
   const CartCard({
     Key? key,
@@ -14,17 +18,24 @@ class CartCard extends StatefulWidget {
   @override
   _CartCardState createState() => _CartCardState();
 }
-
-
-
-
 //class CartCard extends StatelessWidget {
   class _CartCardState extends State<CartCard> {
-
+    Future<bool> RemoveFromCart(Cart p) async {
+      var data = {"id":"${p.id}" };
+      var url = Uri.parse('${weburi}/delete_cart.php');
+      var responsep = await http.post(url, body: json.encode(data));
+      print('ddddddd  ${responsep.body}');
+      // Getting Server response into variable.
+      var messagep = jsonDecode(responsep.body);
+      print('${messagep}');
+      return true;
+      // });
+    }
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
           width: 88,
@@ -64,7 +75,19 @@ class CartCard extends StatefulWidget {
               ),
             )
           ],
-        )
+        ),
+    GestureDetector(
+    onTap: () {
+      print('xxxxxx');
+      setState(() {
+        RemoveFromCart(this.widget.cart);
+        demoCarts.remove(this.widget.cart);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => CartScreen()));
+        //Navigator.pushNamed(context, CartScreen.routeName);
+      });
+    },
+      child:SvgPicture.asset("assets/icons/Trash.svg"),
+    )
       ],
     );
   }

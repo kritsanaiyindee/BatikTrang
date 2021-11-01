@@ -43,7 +43,9 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "ที่อยู่",
             icon: "assets/icons/Locationpoint.svg",
-            press: () {},
+            press: () {
+              Navigator.pushNamed(context, "/map");
+            },
           ),
           if(usr.vendor=="1")
             ProfileMenu(

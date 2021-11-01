@@ -40,8 +40,8 @@ class _SignFormState extends State<SignForm> {
     passwordController.text="Batik1234";
 
 
-    emailController.text='';
-    passwordController.text="";
+   // emailController.text='';
+   // passwordController.text="";
     super.initState();
   }
   void addError({String? error}) {
