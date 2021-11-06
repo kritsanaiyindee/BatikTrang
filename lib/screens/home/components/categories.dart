@@ -1,3 +1,4 @@
+import 'package:batiktrang/models/shopuser.dart';
 import 'package:batiktrang/screens/product_list/product_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,13 +9,34 @@ import '../../../size_config.dart';
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/ShopIcon.svg", "text": "โชคกมลรัตน์ผ้าบาติก","shop":"/shop1"},
-      {"icon": "assets/icons/ShopIcon.svg", "text": "โต๊ะเมืองบาติก","shop":"/shop2"},
-      {"icon": "assets/icons/ShopIcon.svg", "text": "พญาบาติก","shop":"/shop3"},
-      {"icon": "assets/icons/ShopIcon.svg", "text": "พีเจบาติก","shop":"/shop4"},
+    List<Map<String, dynamic>> categories = [];
+
+    if(usr.shopId=="1"){
+     categories = [
+    {"icon": "assets/icons/ShopIcon.svg", "text": "โชคกมลรัตน์ผ้าบาติก","shop":"/shop1"},
+    ];
+    }else if(usr.shopId=="2"){
+    categories = [
+    {"icon": "assets/icons/ShopIcon.svg", "text": "โต๊ะเมืองบาติก","shop":"/shop2"},
+    ];
+    }else if(usr.shopId=="3"){
+    categories = [
+    {"icon": "assets/icons/ShopIcon.svg", "text": "พญาบาติก","shop":"/shop3"},
+    ];
+    }else if(usr.shopId=="4"){
+    categories = [
+    {"icon": "assets/icons/ShopIcon.svg", "text": "พีเจบาติก","shop":"/shop4"},
+    ];
+
+    }else{
+    categories = [
+    {"icon": "assets/icons/ShopIcon.svg", "text": "โชคกมลรัตน์ผ้าบาติก","shop":"/shop1"},
+    {"icon": "assets/icons/ShopIcon.svg", "text": "โต๊ะเมืองบาติก","shop":"/shop2"},
+    {"icon": "assets/icons/ShopIcon.svg", "text": "พญาบาติก","shop":"/shop3"},
+    {"icon": "assets/icons/ShopIcon.svg", "text": "พีเจบาติก","shop":"/shop4"},
 
     ];
+    }
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
       child: Row(
