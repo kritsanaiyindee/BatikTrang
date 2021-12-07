@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 
+import '../../constants.dart';
 import 'components/body.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -9,8 +10,11 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      //backgroundColor:logoColor ,
       appBar: AppBar(
-        title: Text("เข้าสู่ระบบ"),
+        title: Text("เข้าสู่ระบบ",style: TextStyle(color: Colors.white),),
+        backgroundColor:logoColor ,
+        //title: Text("เข้าสู่ระบบ",style: TextStyle(color: Colors.white),),
       ),
       body: Body(),
     );

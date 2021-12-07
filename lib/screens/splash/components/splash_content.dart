@@ -16,14 +16,14 @@ class SplashContent extends StatelessWidget {
     return Column(
       children: <Widget>[
         Spacer(),
-        Text(
+        /*Text(
           "BATIK TRANG",
           style: TextStyle(
             fontSize: getProportionateScreenWidth(36),
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
-        ),
+        ),*/
         Text(
           text!,
           textAlign: TextAlign.center,

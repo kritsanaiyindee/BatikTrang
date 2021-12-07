@@ -26,7 +26,16 @@ class HomeHeader extends StatelessWidget {
           IconBtnWithCounter(
             numOfitem: demoCarts.length,
             svgSrc: "assets/icons/CartIcon.svg",
-            press: () => Navigator.pushNamed(context, CartScreen.routeName),
+            press:(){
+                print('xxxxxxxxxxxxxxxxxxxxxxxx${usr.email}');
+                if(usr.email!=null){
+                  Navigator.pushNamed(context, CartScreen.routeName);
+                }else{
+                  Navigator.pushNamed(context, SignInScreen.routeName);
+                }
+              }
+              ,
+            //press: () => Navigator.pushNamed(context, CartScreen.routeName),
           ),
           IconBtnWithCounter(
             svgSrc: "assets/icons/UserIcon.svg",

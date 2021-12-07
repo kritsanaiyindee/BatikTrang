@@ -1,4 +1,5 @@
 import 'package:batiktrang/models/shopuser.dart';
+import 'package:batiktrang/screens/before_sign_in/sign_in_screen.dart';
 import 'package:batiktrang/screens/product_image_upload/product_screen.dart';
 import 'package:batiktrang/screens/product_list/product_list.dart';
 import 'package:batiktrang/screens/sign_in/sign_in_screen.dart';
@@ -83,7 +84,7 @@ class CustomBottomNavBar extends StatelessWidget {
                   if(usr.email!=null){
                     Navigator.pushNamed(context, ProfileScreen.routeName);
                   }else{
-                    Navigator.pushNamed(context, SignInScreen.routeName);
+                    Navigator.pushNamed(context, BeforeSignInScreen.routeName);
                   }
                 }
 

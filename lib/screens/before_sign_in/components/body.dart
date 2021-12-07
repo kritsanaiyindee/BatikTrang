@@ -30,18 +30,31 @@ class Body extends StatelessWidget {
                   height: getProportionateScreenHeight(100),
                   width: getProportionateScreenWidth(100),
                 ),
-                /*
-                Text(
-                  "เข้าสู่ระบบด้วยอีเมล์และรหัสผ่านของคุณ  \หรือด้วย social media",
-                  textAlign: TextAlign.center,
-                ),
 
-                 */
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SignForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
-
-                //NoAccountText(),
+                /*
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SocalCard(
+                      icon: "assets/icons/google-icon.svg",
+                      press: () {},
+                    ),
+                    SocalCard(
+                      icon: "assets/icons/facebook-2.svg",
+                      press: () {},
+                    ),
+                    SocalCard(
+                      icon: "assets/icons/twitter.svg",
+                      press: () {},
+                    ),
+                  ],
+                ),
+                SizedBox(height: getProportionateScreenHeight(20)),
+                */
+               // NoAccountText(),
                // NoAccountSellerText(),
               ],
             ),

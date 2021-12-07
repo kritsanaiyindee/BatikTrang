@@ -4,7 +4,11 @@ import 'package:batiktrang/screens/splash/splash_screen.dart';
 import 'package:batiktrang/theme.dart';
 
 void main() {
-  runApp(MyApp());
+  //runApp(MyApp());
+  runApp(
+   MyApp(),
+
+  );
 }
 
 class MyApp extends StatelessWidget {

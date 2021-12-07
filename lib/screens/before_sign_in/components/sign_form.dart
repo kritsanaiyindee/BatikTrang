@@ -4,6 +4,8 @@ import 'package:batiktrang/models/Cart.dart';
 import 'package:batiktrang/models/Product.dart';
 import 'package:batiktrang/models/productModel.dart';
 import 'package:batiktrang/models/shopuser.dart';
+import 'package:batiktrang/screens/sign_in/sign_in_screen.dart';
+import 'package:batiktrang/screens/sign_up/sign_up_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:batiktrang/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -36,8 +38,8 @@ class _SignFormState extends State<SignForm> {
     passwordController.text="graf493310";
 
 
-    emailController.text='123@gmail.com';
-    passwordController.text="123456";
+    emailController.text='shop1@batik.com';
+    passwordController.text="Batik1234";
 
 
    // emailController.text='';
@@ -141,60 +143,22 @@ class _SignFormState extends State<SignForm> {
       key: _formKey,
       child: Column(
         children: [
-          buildEmailFormField(),
+
           SizedBox(height: getProportionateScreenHeight(30)),
-          buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          Row(
-            children: [
-              /*
-              Checkbox(
-                value: remember,
-                activeColor: kPrimaryColor,
-                onChanged: (value) {
-                  setState(() {
-                    remember = value;
-                  });
-                },
-              ),
-
-              Text("จดจำไว้"),
-              Spacer(),
-
-              GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                    context, ForgotPasswordScreen.routeName),
-                child: Text(
-                  "ลืมรหัสผ่าน",
-                  style: TextStyle(decoration: TextDecoration.underline),
-                ),
-              )
-
-               */
-            ],
-          ),
-          _isLoading ? CircularProgressIndicator():SizedBox(height: getProportionateScreenHeight(0)),
-          /*
-          FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(20)),
-
-           */
           DefaultButton(
-            text: "ต่อไป",
+            text: "เข้าระบบ",
             press: () async {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                // if all are valid then go to success screen
-                KeyboardUtil.hideKeyboard(context);
-                setState(() {
-                  _isLoading = true;
-                });
-                _loginClick();
-                //Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-              }
+              Navigator.pushNamed(context,SignInScreen.routeName);                //  _isLoading = true;
+
             },
           ),
-
+          SizedBox(height: getProportionateScreenHeight(30)),
+          DefaultButton(
+            text: "ลงทะเบียน",
+            press: () async {
+              Navigator.pushNamed(context,SignUpScreen.routeName);
+            },
+          ),
         ],
       ),
     );
@@ -261,8 +225,8 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Email or  Mobilephone",
-        hintText: "Enter your email  or  Mobilephone",
+        labelText: "Email",
+        hintText: "Enter your email",
         //labelStyle:  TextStyle(color: Colors.white),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly

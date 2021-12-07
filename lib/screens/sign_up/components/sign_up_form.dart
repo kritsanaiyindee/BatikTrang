@@ -26,6 +26,14 @@ class _SignUpFormState extends State<SignUpForm> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final fisrtnameController = TextEditingController();
+  final lastmaneController = TextEditingController();
+  final phoneController = TextEditingController();
+  final addressController = TextEditingController();
+  String? firstName;
+  String? lastName;
+  String? phoneNumber;
+  String? address;
   final List<String?> errors = [];
   _signupClick() async {
     usr=new ShopUser();
@@ -97,6 +105,12 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
+          buildFirstNameFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+          buildLastNameFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
+          buildPhoneNumberFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
@@ -127,6 +141,8 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildConformPassFormField() {
     return TextFormField(
+
+
       //initialValue: "Krit1234",
       controller: confirmPasswordController,
       obscureText: true,
@@ -162,6 +178,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      //style: TextStyle(color: Colors.white),
       controller: passwordController,
       obscureText: true,
       onSaved: (newValue) => password = newValue,
@@ -196,6 +213,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      //style: TextStyle(color: Colors.white),
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
@@ -218,12 +236,86 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
+        //labelStyle: TextStyle(color: Colors.white),
+        //fillColor: Colors.white,
         labelText: "Email",
         hintText: "Enter your email",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildPhoneNumberFormField() {
+    return TextFormField(
+      controller: phoneController,
+      keyboardType: TextInputType.phone,
+      onSaved: (newValue) => phoneNumber = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kPhoneNumberNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kPhoneNumberNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "เบอร์โทรศัพท์",
+        hintText: "โปรดระบุเบอร์โทรศัพท์",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildLastNameFormField() {
+    return TextFormField(
+      controller: lastmaneController,
+      onSaved: (newValue) => lastName = newValue,
+      decoration: InputDecoration(
+        labelText: "นามสกุล",
+        hintText: "โปรดระบุนามสกุล",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+      ),
+    );
+  }
+
+  TextFormField buildFirstNameFormField() {
+    return TextFormField(
+      controller: fisrtnameController,
+      onSaved: (newValue) => firstName = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNamelNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kNamelNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "ชื่อ",
+        hintText: "โปรดระบุชื่อ",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        //floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
       ),
     );
   }

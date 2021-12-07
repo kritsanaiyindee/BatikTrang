@@ -20,7 +20,7 @@ class SearchField extends StatefulWidget  {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: SizeConfig.screenWidth * 0.6,
+      width: SizeConfig.screenWidth * 0.85,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),

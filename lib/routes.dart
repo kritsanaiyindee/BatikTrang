@@ -1,3 +1,4 @@
+import 'package:batiktrang/screens/before_sign_in/sign_in_screen.dart';
 import 'package:batiktrang/screens/order_detail/order_detail.dart';
 import 'package:batiktrang/screens/order_list/order_list.dart';
 import 'package:batiktrang/screens/product_image_upload/product_screen.dart';
@@ -43,6 +44,7 @@ final Map<String, WidgetBuilder> routes = {
   OrderDetailScreen.routeName: (context) => OrderDetailScreen(),
   ShopBuyListScreen.routeName: (context) => ShopBuyListScreen(),
   SignUpSellerScreen.routeName: (context) => SignUpSellerScreen(),
+  BeforeSignInScreen.routeName: (context) => BeforeSignInScreen(),
 
 
 
