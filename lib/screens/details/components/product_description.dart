@@ -68,6 +68,7 @@ class ProductDescription extends StatelessWidget {
             onTap: () {},
             child: Row(
               children: [
+
                 Text(
                   "See More Detail",
                   style: TextStyle(

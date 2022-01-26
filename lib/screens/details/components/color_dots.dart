@@ -40,7 +40,11 @@ class _ColorDotsState extends State<ColorDots> {
           ),*/
           /*new ListTileItem(
               title: "Item#1"),*/
-          Text('${qty}'),
+          SizedBox(width: getProportionateScreenWidth(100)),
+          Text('จำนวน      ${qty}' , style: TextStyle(
+              fontSize: 20,
+          fontWeight: FontWeight.bold
+          ),),
           Spacer(),
           RoundedIconBtn(
             icon: Icons.remove,

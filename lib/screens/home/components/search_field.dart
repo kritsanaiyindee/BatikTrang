@@ -40,7 +40,7 @@ class SearchField extends StatefulWidget  {
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20),
-                vertical: getProportionateScreenWidth(9)),
+                vertical: getProportionateScreenWidth(20)),
             border: InputBorder.none,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,
@@ -56,6 +56,9 @@ class SearchField extends StatefulWidget  {
 
               },
               icon: Icon(Icons.search),
+              padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(20),
+                  vertical: getProportionateScreenWidth(20)),
             ),
         ),
       ),

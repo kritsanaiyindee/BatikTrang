@@ -11,28 +11,39 @@ import 'profile_pic.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      child: Column(
-        children: [
-          ProfilePic(),
-          SizedBox(height: 20),
-          ProfileMenu(
-            text: "My Account",
-            icon: "assets/icons/UserIcon.svg",
-            press: () => {
-              Navigator.pushNamed(context, CompleteProfileScreen.routeName)
-            },
+    return
+      Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/success.png"),
+              fit: BoxFit.cover,
+            ),
           ),
-          ProfileMenu(
-            text: "รายการสั่งซื้อ",
-            icon: "assets/icons/receipt.svg",
-            press: () {
-              Navigator.pushNamed(context, OrderListScreen.routeName);
+          child:  SafeArea(
+            //  padding: const EdgeInsets.only(bottom: 8.0),
+            child:
+            SingleChildScrollView(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                children: [
+                  ProfilePic(),
+                  SizedBox(height: 20),
+                  ProfileMenu(
+                    text: "My Account",
+                    icon: "assets/icons/UserIcon.svg",
+                    press: () => {
+                      Navigator.pushNamed(context, CompleteProfileScreen.routeName)
+                    },
+                  ),
+                  ProfileMenu(
+                    text: "รายการสั่งซื้อ",
+                    icon: "assets/icons/receipt.svg",
+                    press: () {
+                      Navigator.pushNamed(context, OrderListScreen.routeName);
 
-            },
-          ),
-          /*
+                    },
+                  ),
+                  /*
           ProfileMenu(
             text: "ตั้งค่า",
             icon: "assets/icons/Settings.svg",
@@ -40,32 +51,38 @@ class Body extends StatelessWidget {
           ),
 
            */
-          ProfileMenu(
-            text: "ที่อยู่",
-            icon: "assets/icons/Locationpoint.svg",
-            press: () {
-              Navigator.pushNamed(context, "/map");
-            },
-          ),
-          if(usr.vendor=="1")
-            ProfileMenu(
-              text: "ร้านของฉัน",
-              icon: "assets/icons/ShopIcon.svg",
-              press: () {
-                Navigator.pushNamed(context, ShopBuyListScreen.routeName);
-              },
-            ),
-          ProfileMenu(
-            text: "Log Out",
-            icon: "assets/icons/Logout.svg",
-            press: () {
-              print('log out');
-              usr=new ShopUser();
-              Navigator.pushNamed(context, HomeScreen.routeName);
-            },
-          ),
-        ],
-      ),
-    );
+                  ProfileMenu(
+                    text: "ที่อยู่",
+                    icon: "assets/icons/Locationpoint.svg",
+                    press: () {
+                      Navigator.pushNamed(context, "/map");
+                    },
+                  ),
+                  if(usr.vendor=="1")
+                    ProfileMenu(
+                      text: "ร้านของฉัน",
+                      icon: "assets/icons/ShopIcon.svg",
+                      press: () {
+                        Navigator.pushNamed(context, ShopBuyListScreen.routeName);
+                      },
+                    ),
+                  ProfileMenu(
+                    text: "Log Out",
+                    icon: "assets/icons/Logout.svg",
+                    press: () {
+                      print('log out');
+                      usr=new ShopUser();
+                      Navigator.pushNamed(context, HomeScreen.routeName);
+                    },
+                  ),
+                ],
+              ),
+            )
+          )
+      );
+
+
+
+
   }
 }

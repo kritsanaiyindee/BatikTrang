@@ -4,6 +4,7 @@ import 'package:batiktrang/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:batiktrang/components/default_button.dart';
+import 'package:intl/intl.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -41,15 +42,9 @@ class _CheckoutCardState extends State<CheckoutCard> {
 //class CheckoutCard extends StatelessWidget {
   _createOrder() async {
     // SERVER API URL
-
     print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     Uri url=Uri.parse('${weburi}/create_order.php');
-
-
-    //print('xxxxx2xxxxxxxxx${_uploadFileName}xxxxxxxxxxxxxxxxxxxxxxxx');
-    //var img_url = "/shop${_value}/${_uploadFileName}";
-    //print('xxxxxx3xxxxxxxx${widget.prd}xxxxxxxxxxxxxxxxxxxxxxxx');
-    double total_buy=0;
+     double total_buy=0;
     double total_item=0;
     demoCarts.forEach((cart) {
       total_buy+=cart.numOfItem*double.parse('${cart.product.price}')  ;
@@ -200,7 +195,8 @@ class _CheckoutCardState extends State<CheckoutCard> {
                     text: "จำนวน:\n",
                     children: [
                       TextSpan(
-                        text: "\฿${total}",
+                        //text: "\฿${total}",
+                        text: "\฿${NumberFormat("#,###").format(total) }",
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],

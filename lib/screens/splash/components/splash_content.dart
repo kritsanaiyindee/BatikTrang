@@ -16,14 +16,6 @@ class SplashContent extends StatelessWidget {
     return Column(
       children: <Widget>[
         Spacer(),
-        /*Text(
-          "BATIK TRANG",
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(36),
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),*/
         Text(
           text!,
           textAlign: TextAlign.center,
@@ -31,8 +23,8 @@ class SplashContent extends StatelessWidget {
         Spacer(flex: 2),
         Image.asset(
           image!,
-          height: getProportionateScreenHeight(265),
-          width: getProportionateScreenWidth(235),
+          height: getProportionateScreenHeight(400),
+          width: getProportionateScreenWidth(400),
         ),
       ],
     );

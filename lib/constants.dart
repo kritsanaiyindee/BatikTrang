@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:batiktrang/size_config.dart';
 
 const kPrimaryColor = Color(0xFFFF7643);
-const logoColor = Color.fromRGBO(118, 109, 152, 1.0);
+const logoColor = Color.fromRGBO(101, 92, 135, 1.0);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
@@ -63,15 +63,15 @@ class GlobalFunction {
     if(StatusValue==0){
       OrderStatus="สั่งซื้อ";
     }else if(StatusValue==1){
-      OrderStatus="ส่งของ";
+      OrderStatus="ผู้ส่งกำลังเตรียมพัสดุ";
     }else if(StatusValue==2){
-      OrderStatus="รอจัดของ";
+      OrderStatus="เตรียมจัดส่ง";
     }else if(StatusValue==3){
       OrderStatus="ยกเลิก";
     }else if(StatusValue==4){
-      OrderStatus="รับของแล้ว";
+      OrderStatus="อยู่ในระหว่างการจัดส่ง";
     }else if(StatusValue==5){
-      OrderStatus="เสร็จสิ้น";
+      OrderStatus="พัสดุนำส่งสำเร็จ";
     }else{
       OrderStatus="สั่งซื้อ";
     }
@@ -84,15 +84,15 @@ class GlobalFunction {
     if(StatusValue=="0"){
       OrderStatus="สั่งซื้อ";
     }else if(StatusValue=="1"){
-      OrderStatus="ส่งของ";
+      OrderStatus="ผู้ส่งกำลังเตรียมพัสดุ";
     }else if(StatusValue=="2"){
-      OrderStatus="รอจัดของ";
+      OrderStatus="เตรียมจัดส่ง";
     }else if(StatusValue=="3"){
       OrderStatus="ยกเลิก";
     }else if(StatusValue=="4"){
-      OrderStatus="รับของแล้ว";
+      OrderStatus="อยู่ในระหว่างการจัดส่ง";
     }else if(StatusValue=="5"){
-      OrderStatus="เสร็จสิ้น";
+      OrderStatus="พัสดุนำส่งสำเร็จ";
     }else{
       OrderStatus="สั่งซื้อ";
     }

@@ -116,6 +116,7 @@ class CategoryCard extends StatelessWidget {
         width: getProportionateScreenWidth(55),
         child: Column(
           children: [
+
             Container(
               padding: EdgeInsets.all(getProportionateScreenWidth(15)),
               height: getProportionateScreenWidth(55),
@@ -124,7 +125,16 @@ class CategoryCard extends StatelessWidget {
                 color: Color(0xFFFFECDF),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: SvgPicture.asset(icon!),
+              //child: SvgPicture.asset(icon!),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.0),
+                child: Image.asset(
+                  "assets/images/location.png",
+                  height: getProportionateScreenHeight(100),
+                  width: getProportionateScreenWidth(100),
+
+                ),
+              ),
             ),
             SizedBox(height: 5),
             Text(text!, textAlign: TextAlign.center,style: TextStyle(color: kTextColorWhite),)

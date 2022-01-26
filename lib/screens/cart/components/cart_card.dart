@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:batiktrang/models/Cart.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -37,8 +38,9 @@ class CartCard extends StatefulWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+
         SizedBox(
-          width: 88,
+          width: 150,
           child: AspectRatio(
             aspectRatio: 0.88,
             child: Container(
@@ -52,9 +54,11 @@ class CartCard extends StatefulWidget {
             ),
           ),
         ),
-        SizedBox(width: 20),
+        SizedBox(width: 10),
+
         Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               this.widget.cart.product.name!,
@@ -62,9 +66,11 @@ class CartCard extends StatefulWidget {
               maxLines: 2,
             ),
             SizedBox(height: 10),
+
             Text.rich(
               TextSpan(
-                text: "\฿${this.widget.cart.product.price}",
+               // text: "\฿${this.widget.cart.product.price}",
+                text: "\฿${NumberFormat("#,###").format(double.tryParse(this.widget.cart.product.price!)) }",
                 style: TextStyle(
                     fontWeight: FontWeight.w600, color: kPrimaryColor),
                 children: [
@@ -74,20 +80,33 @@ class CartCard extends StatefulWidget {
                 ],
               ),
             )
+
+
           ],
         ),
-    GestureDetector(
-    onTap: () {
-      print('xxxxxx');
-      setState(() {
-        RemoveFromCart(this.widget.cart);
-        demoCarts.remove(this.widget.cart);
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => CartScreen()));
-        //Navigator.pushNamed(context, CartScreen.routeName);
-      });
-    },
-      child:SvgPicture.asset("assets/icons/Trash.svg"),
-    )
+        SizedBox(
+          width: 20,
+
+        ),
+
+        Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+            GestureDetector(
+        onTap: () {
+          print('xxxxxx');
+          setState(() {
+            RemoveFromCart(this.widget.cart);
+            demoCarts.remove(this.widget.cart);
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => CartScreen()));
+            //Navigator.pushNamed(context, CartScreen.routeName);
+          });
+        },
+          child:SvgPicture.asset("assets/icons/Trash.svg"),
+        )
+        ])
+
+
       ],
     );
   }

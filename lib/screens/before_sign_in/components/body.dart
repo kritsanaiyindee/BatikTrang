@@ -8,33 +8,43 @@ import 'sign_form.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SizedBox(
-        width: double.infinity,
-        child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
-                Text(
-                  "ยินดีต้อนรับ",
-                  style: TextStyle(
-                    //color: Colors.white,
-                    fontSize: getProportionateScreenWidth(28),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Image.asset("assets/images/logo.jpg",
-                  height: getProportionateScreenHeight(100),
-                  width: getProportionateScreenWidth(100),
-                ),
+  return   Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/Pattern Success.png"),
+            fit: BoxFit.fill,
+          ),
+        ),
+        child:  SafeArea(
+          //  padding: const EdgeInsets.only(bottom: 8.0),
+          child:
+          SafeArea(
+            child: SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding:
+                EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: SizeConfig.screenHeight * 0.04),
+                      Text(
+                        "ยินดีต้อนรับ",
+                        style: TextStyle(
+                          //color: Colors.white,
+                          fontSize: getProportionateScreenWidth(28),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Image.asset("assets/images/logo.jpg",
+                        height: getProportionateScreenHeight(200),
+                        width: getProportionateScreenWidth(200),
+                      ),
 
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
-                SignForm(),
-                SizedBox(height: SizeConfig.screenHeight * 0.08),
-                /*
+                      SizedBox(height: SizeConfig.screenHeight * 0.08),
+                      SignForm(),
+                      SizedBox(height: SizeConfig.screenHeight * 0.08),
+                      /*
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -54,13 +64,16 @@ class Body extends StatelessWidget {
                 ),
                 SizedBox(height: getProportionateScreenHeight(20)),
                 */
-               // NoAccountText(),
-               // NoAccountSellerText(),
-              ],
+                      // NoAccountText(),
+                      // NoAccountSellerText(),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
-    );
+          )
+        )
+    )
+     ;
   }
 }

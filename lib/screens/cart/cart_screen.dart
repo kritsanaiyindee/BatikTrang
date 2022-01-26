@@ -32,7 +32,7 @@ class CartScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            "${demoCarts.length} รายการ",
+            "ทั้งหมด ${demoCarts.length} รายการ",
             style: Theme.of(context).textTheme.caption,
           ),
         ],

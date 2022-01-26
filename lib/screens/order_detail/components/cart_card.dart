@@ -27,7 +27,8 @@ class CartCard extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
 
-    var shp=Shop1.where((i) => i.id==this.widget.orderItem.productId).toList();
+    //var shp=Shop1.where((i) => i.id==this.widget.orderItem.productId).toList();
+    var shp=Shop1;
     return Row(
       children: [
         SizedBox(

@@ -34,14 +34,10 @@ class _SignFormState extends State<SignForm> {
   void initState() {
     emailController.text="thitipong49339@hotmail.com";
     passwordController.text="graf493310";
-
-
     emailController.text='123@gmail.com';
     passwordController.text="123456";
-
-
-   // emailController.text='';
-   // passwordController.text="";
+       emailController.text='shop1@batik.com';
+       passwordController.text="Batik1234";
     super.initState();
   }
   void addError({String? error}) {
@@ -50,7 +46,6 @@ class _SignFormState extends State<SignForm> {
         errors.add(error);
       });
   }
-
   void removeError({String? error}) {
     if (errors.contains(error))
       setState(() {
@@ -58,9 +53,6 @@ class _SignFormState extends State<SignForm> {
       });
   }
   _loginClick() async {
-
-
-
     // SERVER API URL
     var url = Uri.parse('${weburi}/login.php');
     print('Uri  ${weburi}/login.php');
@@ -112,13 +104,6 @@ class _SignFormState extends State<SignForm> {
         });
 
       }
-
-
-
-
-
-
-
       Navigator.pushNamed(context, LoginSuccessScreen.routeName);
 
     }else{

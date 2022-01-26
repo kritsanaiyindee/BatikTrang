@@ -18,11 +18,6 @@ class OrderDetailScreen extends StatelessWidget {
       bottomNavigationBar: CheckoutCard(),
     );
   }
-
-
-
-
-
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       title: Column(

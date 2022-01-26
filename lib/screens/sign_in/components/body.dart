@@ -6,6 +6,7 @@ import '../../../size_config.dart';
 import 'sign_form.dart';
 
 class Body extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -27,8 +28,8 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 Image.asset("assets/images/logo.jpg",
-                  height: getProportionateScreenHeight(100),
-                  width: getProportionateScreenWidth(100),
+                  height: getProportionateScreenHeight(200),
+                  width: getProportionateScreenWidth(200),
                 ),
                 /*
                 Text(

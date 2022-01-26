@@ -37,10 +37,10 @@ class _BodyState extends State<Body> {
     demoCarts.clear();
     cart.forEach((element) {
       var prd=Shop1.where((i) => i.id==element.productId).toList();;
-      print('ffffffffffffffff${element.productId}');
-      print('ddddddddddddd${prd.length}');
-      print('ddddddddddddd${element.qty}');
-      print('ddddddddddddd${int.tryParse('${element.qty!}')}');
+     // print('ffffffffffffffff${element.productId}');
+    //  print('ddddddddddddd${prd.length}');
+    //  print('ddddddddddddd${element.qty}');
+   //   print('ddddddddddddd${int.tryParse('${element.qty!}')}');
       demoCarts.add(Cart(product: prd[0],id:element.id, numOfItem: int.tryParse('${element.qty}')! ));
     });
     print('${messagep}');

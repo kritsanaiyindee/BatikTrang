@@ -179,8 +179,8 @@ class _BodyState extends State<Body> {
         future: getMaster(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
+            print('<<<<<<<<<<<<<<<<${ordItem.length}');
             return
-
 
               ListView.builder(
               itemCount: ordItem.length,

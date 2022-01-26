@@ -89,7 +89,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                                   });
                                 },
                               ),
-                              Text("ส่งของ", style: TextStyle(fontSize: 18)),
+                              Text("ผู้ส่งกำลังเตรียมพัสดุ", style: TextStyle(fontSize: 18)),
                             ],
                           ),
                           if(!isOrderTail)Row(
@@ -104,7 +104,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                                   });
                                 },
                               ),
-                              Text("รอจัดของ", style: TextStyle(fontSize: 18)),
+                              Text("เตรียมจัดส่ง", style: TextStyle(fontSize: 18)),
                             ],
                           ),
                           Row(
@@ -136,7 +136,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                                   });
                                 },
                               ),
-                              Text("รับของแล้ว", style: TextStyle(fontSize: 18)),
+                              Text("อยู่ในระหว่างการจัดส่ง", style: TextStyle(fontSize: 18)),
                             ],
                           ),
                           Row(
@@ -152,7 +152,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
                                   });
                                 },
                               ),
-                              Text("เสร็จสิ้น", style: TextStyle(fontSize: 18)),
+                              Text("พัสดุนำส่งสำเร็จ", style: TextStyle(fontSize: 18)),
                             ],
                           ),
                           DefaultButton(

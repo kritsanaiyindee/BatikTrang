@@ -1,10 +1,17 @@
 import 'package:batiktrang/components/coustom_bottom_nav_bar.dart';
 import 'package:batiktrang/enums.dart';
+import 'package:batiktrang/models/Cart.dart';
+import 'package:batiktrang/models/shopuser.dart';
+import 'package:batiktrang/screens/before_sign_in/sign_in_screen.dart';
+import 'package:batiktrang/screens/cart/cart_screen.dart';
+import 'package:batiktrang/screens/home/components/icon_btn_with_counter.dart';
 import 'package:batiktrang/screens/home/components/shop_location.dart';
 import 'package:batiktrang/screens/product_list/product_list_item1.dart';
 import 'package:batiktrang/screens/product_list/product_scoped_model.dart';
 import 'package:batiktrang/screens/product_list/product_list_item.dart';
 import 'package:batiktrang/screens/profile/components/location4.dart';
+import 'package:batiktrang/screens/profile/profile_screen.dart';
+import 'package:batiktrang/screens/sign_in/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -43,6 +50,38 @@ class ProductsListScreen extends StatelessWidget {
         body: ProductsListPageBody(
           shop: shop!,
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed:(){
+            print('xxxxxxxxxxxxxxxxxxxxxxxx${usr.email}');
+            if(usr.email!=null){
+              Navigator.pushNamed(context, ProfileScreen.routeName);
+            }else{
+              Navigator.pushNamed(context, BeforeSignInScreen.routeName);
+            }
+          },
+/*
+          onPressed: () {
+            if(usr.email!=null){
+              Navigator.pushNamed(context, CartScreen.routeName);
+            }else{
+              Navigator.pushNamed(context, SignInScreen.routeName);
+            }
+
+          },
+
+ */
+          child: IconBtnWithCounter(
+            numOfitem: demoCarts.length,
+            svgSrc: "assets/icons/CartIcon.svg",
+            press:(){
+
+            }
+            ,
+            //press: () => Navigator.pushNamed(context, CartScreen.routeName),
+          ),
+          backgroundColor: Colors.green,
+
+        ),
         bottomNavigationBar:
             CustomBottomNavBar(selectedMenu: MenuState.message),
       ),
@@ -65,8 +104,6 @@ class ProductsListPageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     this.context = context;
-
-
     //  const LatLng _Praya = LatLng(7.806820621462803, 99.5640122288329);
     //  const LatLng _PJ = LatLng(7.7180347299396885, 99.67597380933788);
     //  const LatLng _tm = LatLng(7.443838181759113, 99.54926246523647);
@@ -86,9 +123,6 @@ class ProductsListPageBody extends StatelessWidget {
         ,"lat":7.7180347299396885,"lng":99.67597380933788,"LatLng":_PJ},
 
     ];
-
-
-
     return ScopedModelDescendant<ProductScopedModel>(
       builder: (context, child, model)
     {
@@ -96,72 +130,89 @@ class ProductsListPageBody extends StatelessWidget {
       return model.isLoading
           ? _buildCircularProgressIndicator()
           :
-
-      SingleChildScrollView(
-          physics: const ScrollPhysics(),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                new Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(width: 1.0, color: Colors.lightBlue.shade600),
-                      bottom: BorderSide(width: 1.0, color: Colors.lightBlue.shade900),
-                    ),
-                    color: Colors.white,
-                  ),
-                  width: 160.0,
-                  child: new Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+      Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/bg.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child:  SafeArea(
+            //  padding: const EdgeInsets.only(bottom: 8.0),
+            child:
+            SingleChildScrollView(
+                physics: const ScrollPhysics(),
+                child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      new Text(
-                        "โชคกมลผ้าบาติก",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            color: logoColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17.0),
-                      ),
-                    ],
-                  ),
-                ),
-                new Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                     // top: BorderSide(width: 1.0, color: Colors.lightBlue.shade600),
-                   //   bottom: BorderSide(width: 1.0, color: Colors.lightBlue.shade900),
-                    ),
-                    color: Colors.white,
-                  ),
-                  width: 160.0,
-                  child: new Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      new Text(
-                        "รายละเอียดร้านค้า",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            color: logoColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17.0),
+                      new Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            //top: BorderSide(width: 1.0, color: Colors.lightBlue.shade600),
+                            //bottom: BorderSide(width: 1.0, color: Colors.lightBlue.shade900),
+                          ),
+                          color: Colors.white,
+
+
+                        ),
+                        width: 400.0,
+                        child: new Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            new Text(
+                              categories[this.shop-1]["text"],
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: logoColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 32.0),
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
+                      new Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            // top: BorderSide(width: 1.0, color: Colors.lightBlue.shade600),
+                            //   bottom: BorderSide(width: 1.0, color: Colors.lightBlue.shade900),
+                          ),
+                          color: Colors.white,
+                        ),
+                        width: 400.0,
+                        child: new Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            new Text(
+                              "รายละเอียดร้านค้า",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  color: logoColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0),
+                            ),
+                          ],
+                        ),
+                      ),
 
 
-                ...model.productsList.map((item) {
-                  return ProductsListItem1(
-                    //product:model!.productsList[index]);
-                    product1: item,
-                  );
-                }).toList(),
-              ]
+                      ...model.productsList.map((item) {
+                        return ProductsListItem1(
+                          //product:model!.productsList[index]);
+                          product1: item,
+                        );
+                      }).toList(),
+                    ]
+                )
+            )
           )
-      );
+      )
+
+
+      ;
+
     });
   }
 
@@ -255,11 +306,6 @@ class ProductsListPageBody extends StatelessWidget {
                   //be handled by the odd indexes where the row contains 2 items
                   return Container();
                 } else {
-                  //1st, 3rd, 5th.. index would contain a row containing 2 products
-                  ;
-                  print('   ${index}');
-
-                  print('   ${model!.getProductsCount()}');
                   print(
                       ' index > model!.getProductsCount()   ${index > model!.getProductsCount()}');
                   if (index > model!.getProductsCount()) {

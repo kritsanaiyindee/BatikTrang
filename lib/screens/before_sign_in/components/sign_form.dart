@@ -38,8 +38,8 @@ class _SignFormState extends State<SignForm> {
     passwordController.text="graf493310";
 
 
-    emailController.text='shop1@batik.com';
-    passwordController.text="Batik1234";
+ //   emailController.text='shop1@batik.com';
+ //   passwordController.text="Batik1234";
 
 
    // emailController.text='';

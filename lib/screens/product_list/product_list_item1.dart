@@ -1,14 +1,17 @@
 import 'package:batiktrang/components/default_button.dart';
 import 'package:batiktrang/helper/keyboard.dart';
 import 'package:batiktrang/models/shopuser.dart';
+import 'package:batiktrang/screens/before_sign_in/sign_in_screen.dart';
 import 'package:batiktrang/screens/home/home_screen.dart';
 import 'package:batiktrang/screens/product_image_upload/components/product_upload.dart';
 import 'package:batiktrang/screens/product_image_upload/product_screen.dart';
+import 'package:batiktrang/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:batiktrang/models/Product.dart';
 import 'package:batiktrang/screens/details/details_screen.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
 import '../../constants.dart';
 import '../../enums.dart';
@@ -70,11 +73,20 @@ class ProductsListItem1 extends StatelessWidget {
     return InkWell(
       onTap: () {
         qty=1;
-        Navigator.pushNamed(
-          context,
-          DetailsScreen.routeName,
-          arguments: ProductDetailsArguments(product: product),
-        );
+
+
+        print('xxxxxxxxxxxxxxxxxxxxxxxx${usr.email}');
+        if(usr.email!=null){
+         // Navigator.pushNamed(context, ProfileScreen.routeName);
+          Navigator.pushNamed(
+            context,
+            DetailsScreen.routeName,
+            arguments: ProductDetailsArguments(product: product),
+          );
+        }else{
+
+          Navigator.pushNamed(context, BeforeSignInScreen.routeName);
+        }
       },
       child: Card(
         elevation: 1.0,
@@ -100,23 +112,10 @@ class ProductsListItem1 extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   WrapingTextDetail(product.name!),
-                 /* Text(
-                    product.title,
-                    style: TextStyle(fontSize: 16.0, color: Colors.grey),
-                  ),
 
-                  */
                   SizedBox(
                     height: 2.0,
                   ),
-
-                  //if(usr.email!=null)
-                  //if(usr.shopId==product.shopId)
-
-
-
-
-
                 ],
               ),
             ),
@@ -133,11 +132,11 @@ class ProductsListItem1 extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Text(
-                        "\฿${product.price}",
+                        "\฿${NumberFormat("#,###").format(double.tryParse(product.price!)) }",
                         style: TextStyle(fontSize: 16.0, color: Colors.black),
                       ),
                       SizedBox(
-                        width: 8.0,
+                        width: 20.0,
                       ),
 
                     ],
@@ -156,21 +155,15 @@ class ProductsListItem1 extends StatelessWidget {
 
                           ),
                           onPressed: () async {
-
-                            KeyboardUtil.hideKeyboard(context);
-                            Navigator.push(
+                            qty=1;
+                            Navigator.pushNamed(
                               context,
-                              MaterialPageRoute(builder: (context) => UploadProductScreen(prd:product)),
+                              DetailsScreen.routeName,
+                              arguments: ProductDetailsArguments(product: product),
                             );
-                            // Navigator.pushNamed(context, UploadProductScreen.routeName);
-                            //Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-
                           }
                         //  Navigator.pushNamed(context, HomeScreen.routeName),
-
                       ),
-
-
                     ],
                   ),
 
